@@ -10,7 +10,7 @@ Mijn repo voor project tech waarbij ik een wiki bijhoudt en mijn opdrachten neer
   
 ## Installeren
 ```
-git clone https://github.com/ROEL2407/Project_Tech_HVA.git
+git clone https://github.com/M4TThys123/Blok-Tech-Team
 ```
 ```
 npm install
