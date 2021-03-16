@@ -34,6 +34,9 @@ const person = [
   {"id": 14256, "naam": "Bert"},
   {"id": 987643, "naam": "Maaike"}
 ];
+const geslacht = ["man","vrouw"];
+const leeftijd = ["20-30", "30-40", "40-50", "50+"];
+const gebruiker = 2;
 
 
 app.use(bodyParser.urlencoded({extended:false}));
@@ -41,6 +44,20 @@ app.use(express.static('static'));
 
 app.engine('handlebars', exphbs());
 app.set("view engine", 'handlebars');
+
+app.get('/', async (req, res) => {
+  let profielen = {}
+
+  // haalt je voorkeur uit de database
+  db.collection('voorkeur').findOne({id: gebruiker}, async function(err, result) {
+    if (err) throw err;
+    // filter op geslacht en leeftijd
+    const filter = {geslacht: result.geslacht, leeftijdcategory: result.leeftijd}; 
+    // haalt alle profielen de voldoen aan het filter uit de database op en stopt ze in een array
+    profielen = await db.collection('profielen').find(filter).toArray();
+    res.render('home', {profielen})
+  });
+});
 
 app.get('/q&a', async (req, res) => {
   var vragen = [];
@@ -90,6 +107,16 @@ app.post('/vragen', async (req,res) => {
   const Addvragen = {"vraag": req.body.vraag, "ant1": req.body.answer1, "ant2": req.body.answer2};
   await db.collection('questions').insertOne(Addvragen);
   res.render('add', {Addvragen, layout: 'addlayout.handlebars'})
+});
+
+app.get('/filter', (req, res) => {
+  res.render('filter',{geslacht, leeftijd});
+});
+
+app.post('/filter', async (req,res) => {
+  // update voorkeur in de database
+  await db.collection("voorkeur").findOneAndUpdate({ id: gebruiker },{ $set: {"geslacht": req.body.geslacht, "leeftijd": req.body.leeftijd }},{ new: true, upsert: true, returnOriginal: false })
+  res.redirect('/')
 });
 
 app.use(function (req, res) {

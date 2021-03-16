@@ -11,19 +11,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ROEL2407/Project_Tech_HVA.git"
+    "url": "git+https://github.com/M4TThys123/Blok-Tech-Team"
   },
   "keywords": [
     "\"Fun\"",
     "\"Games\"",
     "\"Match\""
   ],
-  "author": "Roel Komen",
-  "license": "ISC",
+  "author": "Roel Komen, Marloes Tacx, Tim Meeuwsen en Matthijs Blauw",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ROEL2407/Project_Tech_HVA/issues"
+    "url": "https://github.com/M4TThys123/Blok-Tech-Team/issues"
   },
-  "homepage": "https://github.com/ROEL2407/Project_Tech_HVA#readme",
+  "homepage": "https://github.com/M4TThys123/Blok-Tech-Team#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
