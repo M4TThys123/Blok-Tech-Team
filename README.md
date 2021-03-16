@@ -1,4 +1,4 @@
-# Game matcher# Project_Tech_HVA
+# Game matcher
 Mijn repo voor project tech waarbij ik een wiki bijhoudt en mijn opdrachten neerzet.
 
 ## Table of contents:<br />
