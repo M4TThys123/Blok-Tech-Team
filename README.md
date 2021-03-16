@@ -35,4 +35,4 @@ Daarnaast is het idee van vragen aanmaken dat een admin deze aanmaakt via een pa
 <img src="https://github.com/ROEL2407/Project_Tech_HVA/blob/master/images/datamodel.jpg" alt="Datamodel van mijn database" width="750">
 
 ## License
-Usage is provided under the [MIT License](https://github.com/git/git-scm.com/blob/master/MIT-LICENSE.txt). See LICENSE for the full details.
+Usage is provided under the [MIT License](https://github.com/M4TThys123/Blok-Tech-Team/blob/main/LICENSE). See LICENSE for the full details.
