@@ -1,0 +1,251 @@
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    position: relative;
+    font-family: 'Montserrat', sans-serif;
+    height: 100%;
+}
+header {
+    background-color: #3aaa35;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+header h1 {
+    width: 50%;
+}
+
+main {
+    height: 75%;
+}
+
+#chat {
+    display: flex;
+    flex-direction: column;
+}
+main #chat #result {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 0.5em;
+    margin-bottom: 1em;
+}
+
+main #chat .chat_msg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1em 0em;
+    width: 45%;
+    border-radius: 2em;
+    position: relative;
+    
+}
+
+main #chat #msg1 {
+    background-color: #3aaa35;
+    margin-left: 1em;
+    
+}
+
+main #chat #msg1::before { /*https://codingislove.com/css-speech-bubbles/*/
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border-left: 10px solid #3aaa35;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #3aaa35;
+    border-bottom: 10px solid transparent;
+    bottom: -12px;
+    left: 8px;
+}
+
+main #chat #msg2 {
+    background-color:grey;
+    align-self: flex-end;
+    margin-right: 1em;
+    
+}
+
+main #chat #msg2::before { /*https://codingislove.com/css-speech-bubbles/*/
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border-left: 10px solid  transparent; 
+    border-right: 10px solid grey;
+    border-top: 10px solid grey;
+    border-bottom: 10px solid transparent;
+    bottom: -12px;
+    right: 8px;
+}
+
+#popUpWrapper {
+    background-color: rgba(0, 0, 0, 50%);
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+#popUp {
+    background-color: white;
+    margin: auto;
+    width: 90%;
+    padding: 1em;
+}
+
+#popUp a {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 1em; 
+}
+
+#popUp a i {
+    margin-right: 0.25em;
+}
+
+#popUp #questions, #popUp .answers {
+    text-align: center;
+}
+
+#popUp #questions .quest {
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    padding: 1em 0em;
+    cursor: pointer;
+}
+
+#popUp #questions .quest:last-of-type {
+    border-bottom: 1px solid black;
+}
+
+.invisible {
+    display: none;
+}
+
+#popUp .answers form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#popUp .answers form label {
+    cursor: pointer;
+    margin: 0.5em 0em;
+}
+
+#popUp .answers form fieldset, #popUp .answers form #sendAnswer {
+    margin-top: 1em;
+    max-width: 11em;
+}
+
+#popUp .answers form #sendAnswer {
+    padding: 0.5em;
+    border-radius: 2em;
+    border: 1px solid black;
+    background-color: #ea4d4d;
+}
+
+footer {
+    position: absolute;
+    width: 100%;
+    border-top: 1px solid black;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    bottom: 0;
+    left: 0;
+}
+
+footer a img {
+    width: 3em;
+}
+
+footer form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+footer form input:first-of-type {
+    border: 1px solid black;
+    width: 20em;
+    margin-right: 1em;
+    height: 2em;
+    padding-left: 0.5em;
+    border-radius: 1em;
+}
+
+footer form #submitText {
+    border: none;
+    background-image: url(../images/send.png);
+    background-repeat: no-repeat;
+    background-size: 30px;
+    width: 30px;
+    height: 30px;
+}
+#add_header, #add_footer {
+    height: 10%;
+}
+
+#add_header h1 {
+    font-size: 1.5em;
+    width: 75%;
+}
+
+#vraagh2 {
+    text-align: center;
+    margin: 1em 0em 0.5em 0em;
+}
+#vraagform {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#vraagform fieldset {
+    margin-top: 1em;
+    border: none;
+}
+
+#vraagform button {
+    border-radius: 2em;
+    border: 1px solid black;
+    margin-top: 01em;
+    padding: 0.5em 1.5em;
+    font-size: 1.25em;
+}
+
+#add_footer {
+    display: flex;
+    justify-content: center;
+}

@@ -1,0 +1,10 @@
+    <section id="chat">
+        <section id="result">
+            {{#each lastItem}}
+            <p>Jij antwoordde "{{ this.ansPerson1 }}"</p>
+            <p>Maaike antwoordde "{{ this.ansPerson2 }}"</p>
+            {{/each}}
+        </section>
+        <section class="chat_msg" id="msg1"><p>Hey! hoe gaat het?</p></section>
+        <section class="chat_msg" id="msg2"><p>Goed! en met jou?</p></section>
+    </section>
