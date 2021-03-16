@@ -1,0 +1,41 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js",
+    "serve": "",
+    "build": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ROEL2407/Project_Tech_HVA.git"
+  },
+  "keywords": [
+    "\"Fun\"",
+    "\"Games\"",
+    "\"Match\""
+  ],
+  "author": "Roel Komen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ROEL2407/Project_Tech_HVA/issues"
+  },
+  "homepage": "https://github.com/ROEL2407/Project_Tech_HVA#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-handlebars": "^5.2.0",
+    "handlebars": "^4.7.6",
+    "js-beautify": "^1.13.5",
+    "mongodb": "^3.6.4",
+    "npm": "^7.6.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.21.0",
+    "nodemon": "^2.0.7"
+  }
+}
