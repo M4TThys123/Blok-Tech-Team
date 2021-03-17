@@ -1,0 +1,27 @@
+<section>
+		<h1>Profiel</h1>
+		<p>Personaliseer je profiel.</p>
+	</section>
+
+	<section id="profiel">
+		<img src="images/pexels-photo-220453.jpeg">
+		<ul>
+			<li>{{name}}</li>
+			<li>{{age}} jaar</li>
+		</ul>
+		<a class="button" href="changeinfo">Aanpassen</a>
+	</section>
+
+	<section id="movies">
+		<h2>Favorieten films</h2>
+
+		<ul>
+			{{#each favoritemovies}}  
+				<li>
+                     <img src="images/{{this}}.jpg" alt={{this}}>
+                </li>
+                {{/each}}
+        </ul>
+		<a class="button" href="changemovie">Aanpassen</a>
+
+	</section>	
