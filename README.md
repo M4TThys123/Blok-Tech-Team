@@ -2,7 +2,7 @@
 
 ## Concept ##
 
-Game matcher is een cross-platform matching applicatie die gamers gaat helpen bij het vinden van andere gamers. Doormiddel van eem icebreaker is het de bedoeling dat intoverte of verlege gamers makkelijk een connectie aan kunnen gaan. De focus van Game matcher ligt vooral bij het aangaan van nieuwe connecties.
+Game matcher is een cross-platform matching applicatie die gamers gaat helpen bij het vinden van andere gamers. Doormiddel van een icebreaker is het de bedoeling dat intoverte of verlege gamers makkelijk een connectie aan kunnen gaan. De focus van Game matcher ligt vooral bij het aangaan van nieuwe connecties.
 
 
 ## Table of contents:<br />
