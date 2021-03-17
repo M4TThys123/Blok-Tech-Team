@@ -1,32 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>document</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com"> 
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/public/css/style.css">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"><!--https://fontawesome.com/icons?d=gallery-->
+    <title>Game match</title>
 </head>
-
 <body>
     <header>
-        <nav><a href=""><i class="fa fa-chevron-left"></i></a></nav>
-        <h1>Maaike</h1>
+       {{!-- <img src="/public/images/logo.png"> --}}
     </header>
     <main>
     {{{body}}}
-    </main>
-
-
-    <footer>
-        <a href="#"><img src="public/images/camera.png" alt="add a picture"></a>
-        <form action="post">
-            <input type="text" placeholder="type here...">
-            <input type="submit" value="" id="submitText">
-        </form>
-    </footer>
+   </main>
+     <nav>
+        <ul>
+            <a><li><img src="/public/images/conversation.svg">Chat</li></a>
+            <a href="/"><li><img src="/public/images/pawprint.svg">Match</li></a>
+            <a><li><img src="/public/images/user.svg">Profile</li></a>
+        </ul>
+    </nav>
 </body>
-<script type="text/javascript" src="/public/js/script.js"></script>
 </html>
