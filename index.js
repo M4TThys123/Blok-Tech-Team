@@ -5,7 +5,6 @@ const port = 3000;
 var bodyParser = require('body-parser');
 const dotenv = require('dotenv').config();
 const { MongoClient } = require('mongodb');
-app.use(express.json());
 
 
 let db = null;
