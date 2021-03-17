@@ -175,7 +175,7 @@ app.post('/removemovie', async (req, res) => {
 app.get('/q&a', async (req, res) => {
   var vragen = [];
   //takes all the questions from the database and places them into the array vragen
-  vragen = await db.collection('questions').find({}).toArray();
+  vragen = await db.collection('vragen').find({}).toArray();
   //picks 5 random questions from vragen
   const randVraag = [];
   // vraagHolder is a holder for a single question to test if they are already in the new array randVraag
