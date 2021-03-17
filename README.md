@@ -16,6 +16,9 @@ Game matcher is een cross-platform matching applicatie die gamers gaat helpen bi
 git clone https://github.com/M4TThys123/Blok-Tech-Team.git
 ```
 ```
+cd <plek waar jij het project hebt opgeslagen> 
+```
+```
 npm install
 ```
 ```
@@ -23,7 +26,7 @@ npm start
 ```
 (je moet een terminal op je computer of laptop hebben om deze commands te runnen)
 ## Opdracht
-De opdracht voor dit project is het maken van een matching applicatie/website. Hierbij moeten wij door middel van het brainstormen met [job stories](https://github.com/M4TThys123/Blok-Tech-Team/wiki/Job-Stories) enzovoort op een feature komen die wij gaan uitwerken.
+Wij zijn door middel van het brainstormen met [job stories](https://github.com/M4TThys123/Blok-Tech-Team/wiki/Job-Stories) op een feature komen die wij hebben uitgewerkt. Vervolgens is het plan om deze te bundelen tot een werkende matching app.
   
 ## Datebase schets
 
