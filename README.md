@@ -7,7 +7,6 @@ Game matcher is een cross-platform matching applicatie die gamers gaat helpen bi
 ## Table of contents:<br />
 [Installeren](#Installeren)<br />
 [Opdracht](#Opdracht)<br />
-[Mijn feature](#Mijn-feature)<br />
 [Datebase schets](#Datebase-schets)<br />
 [License](#License)<br />
   
@@ -25,6 +24,7 @@ npm install
 npm start
 ```
 (je moet een terminal op je computer of laptop hebben om deze commands te runnen)
+
 ## Opdracht
 Wij zijn door middel van het brainstormen met [job stories](https://github.com/M4TThys123/Blok-Tech-Team/wiki/Job-Stories) op een feature komen die wij hebben uitgewerkt. Vervolgens is het plan om deze te bundelen tot een werkende matching app.
   
