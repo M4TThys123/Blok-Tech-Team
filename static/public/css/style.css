@@ -250,27 +250,13 @@ footer form #submitText {
     justify-content: center;
 }
 
-nav ul {
-    list-style-type: none;
-    background-color: #0E4C76;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    padding: 0.5em 1em;
-    max-height: 5em;
-}
-
-li{
-    color: #E7E8EC;
-    padding: 0 2em;
-}
-
 section{
     display: flex;
     flex-direction: column;
+}
+
+a img{
+    max-height: 2em;
 }
 
 button{
