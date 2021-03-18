@@ -173,7 +173,7 @@ main #chat #msg2::before { /*https://codingislove.com/css-speech-bubbles/*/
     background-color: #ea4d4d;
 }
 
-footer {
+#chat_footer, #add_footer {
     position: absolute;
     width: 100%;
     border-top: 1px solid black;
@@ -184,17 +184,17 @@ footer {
     left: 0;
 }
 
-footer a img {
+#chat_footer a img {
     width: 3em;
 }
 
-footer form {
+#chat_footer form {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-footer form input:first-of-type {
+#chat_footer form input:first-of-type {
     border: 1px solid black;
     width: 20em;
     margin-right: 1em;
@@ -203,7 +203,7 @@ footer form input:first-of-type {
     border-radius: 1em;
 }
 
-footer form #submitText {
+#chat_footer form #submitText {
     border: none;
     background-image: url(../images/send.png);
     background-repeat: no-repeat;
