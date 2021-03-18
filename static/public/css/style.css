@@ -60,7 +60,7 @@ nav ul li img {
    height: 2em;
 }
 
-nav ul li:hover img {
+nav ul li:hover img, .current {
 filter: invert(43%) sepia(25%) saturate(1279%) hue-rotate(161deg) brightness(97%) contrast(100%);
 }
 
