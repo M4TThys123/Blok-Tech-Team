@@ -20,7 +20,7 @@ body {
     height: 100%;
 }
 header {
-    background-color: #3aaa35;
+    background-color: #257EBB;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -89,7 +89,7 @@ main #chat .chat_msg {
 }
 
 main #chat #msg1 {
-    background-color: #3aaa35;
+    background-color: #257EBB;
     margin-left: 1em;
     
 }
@@ -99,9 +99,9 @@ main #chat #msg1::before { /*https://codingislove.com/css-speech-bubbles/*/
     width: 0px;
     height: 0px;
     position: absolute;
-    border-left: 10px solid #3aaa35;
+    border-left: 10px solid #257EBB;
     border-right: 10px solid transparent;
-    border-top: 10px solid #3aaa35;
+    border-top: 10px solid #257EBB;
     border-bottom: 10px solid transparent;
     bottom: -12px;
     left: 8px;
@@ -199,7 +199,7 @@ main #chat #msg2::before { /*https://codingislove.com/css-speech-bubbles/*/
     padding: 0.5em;
     border-radius: 2em;
     border: 1px solid black;
-    background-color: #ea4d4d;
+    background-color: #EB0C0C;
 }
 
 #chat_footer, #add_footer {
