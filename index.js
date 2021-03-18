@@ -55,6 +55,7 @@ const games = [
 
 const huidigeGebruikerId = "603fb9c67d5fab08997fc484";
 
+
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(express.static('static'));
 
@@ -130,13 +131,17 @@ app.get('/filter', (req, res) => {
 });
 
 // Profiel pagina
-app.get('/profiel', (req, res) => {
-  res.render('profiel',{person, games});
+app.get('/profiel', async (req, res) => {
+  // Krijg profiel 1
+const person2 = await db.collection('people').findOne();
+  res.render('profiel',{person2, games});
 });
 
 // Profiel pagina
-app.get('/aanpassenprofiel', (req, res) => {
-  res.render('aanpassenprofiel',{person, games});
+app.get('/aanpassenprofiel', async (req, res) => {
+  // Krijg profiel 1
+const person2 = await db.collection('people').findOne();
+  res.render('aanpassenprofiel',{person2, games});
 });
 
 app.post('/aanpassenprofiel', async (req, res) => {

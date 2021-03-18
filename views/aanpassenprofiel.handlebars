@@ -6,17 +6,17 @@
 
     <section id="profiel">
         <img src="{{this.profielAfbeelding}}">
-            <p>{{this.person.0.naam}}</p>
-            <p>{{this.person.0.leeftijd}} jaar</p>
+            <p>{{this.person2.naam}}</p>
+            <p>{{this.person2.leeftijd}} jaar</p>
     </section>
 
     <h2>Aanpassen</h2>
     
     <form action="/aanpassenprofiel" method="post">
         <label >Naam:</label><br>
-        <input type="text" name="naam" value="{{this.person.0.naam}}"><br>
+        <input type="text" name="naam" value="{{this.person2.naam}}"><br>
         <label >Leeftijd:</label><br>
-        <input type="text" name="leeftijd" value="{{this.person.0.leeftijd}}"><br>
+        <input type="text" name="leeftijd" value="{{this.person2.leeftijd}}"><br>
         <input type="submit" value="Submit">
     </form> 
 
