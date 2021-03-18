@@ -16,7 +16,7 @@ html {
 
 body {
     position: relative;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Lato', sans-serif;
     height: 100%;
 }
 header {
@@ -33,6 +33,35 @@ header h1 {
 
 main {
     height: 75%;
+}
+
+/*navigatie fixed*/
+nav{
+    background-color: white;
+    width: 100vw;
+    padding: 15px 35px;
+    position: fixed;
+    bottom: 0;
+    border-top: 1px solid;
+}
+
+nav ul{
+        display: flex;
+    justify-content: space-between;
+}
+
+nav ul li{
+display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+nav ul li img {
+   height: 2em;
+}
+
+nav ul li:hover img {
+filter: invert(43%) sepia(25%) saturate(1279%) hue-rotate(161deg) brightness(97%) contrast(100%);
 }
 
 #chat {
@@ -173,7 +202,7 @@ main #chat #msg2::before { /*https://codingislove.com/css-speech-bubbles/*/
     background-color: #ea4d4d;
 }
 
-footer {
+#chat_footer, #add_footer {
     position: absolute;
     width: 100%;
     border-top: 1px solid black;
@@ -184,17 +213,17 @@ footer {
     left: 0;
 }
 
-footer a img {
+#chat_footer a img {
     width: 3em;
 }
 
-footer form {
+#chat_footer form {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-footer form input:first-of-type {
+#chat_footer form input:first-of-type {
     border: 1px solid black;
     width: 20em;
     margin-right: 1em;
@@ -203,7 +232,7 @@ footer form input:first-of-type {
     border-radius: 1em;
 }
 
-footer form #submitText {
+#chat_footer form #submitText {
     border: none;
     background-image: url(../images/send.png);
     background-repeat: no-repeat;
