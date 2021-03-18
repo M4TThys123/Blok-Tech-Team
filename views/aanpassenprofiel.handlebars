@@ -1,0 +1,23 @@
+<section>
+        <h1>Profiel aanpassen</h1>
+        <p>Verander je profiel.</p>
+    </section>
+
+
+    <section id="profiel">
+        <img src="{{this.profielAfbeelding}}">
+            <p>{{this.person.0.naam}}</p>
+            <p>{{this.person.0.leeftijd}} jaar</p>
+    </section>
+
+    <h2>Aanpassen</h2>
+    
+    <form action="/aanpassenprofiel" method="post">
+        <label >Naam:</label><br>
+        <input type="text" name="naam" value="{{this.person.0.naam}}"><br>
+        <label >Leeftijd:</label><br>
+        <input type="text" name="leeftijd" value="{{this.person.0.leeftijd}}"><br>
+        <input type="submit" value="Submit">
+    </form> 
+
+

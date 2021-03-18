@@ -30,13 +30,27 @@ connectDB()
 
 // a little array to mimic real accounts
 const person = [
-  {"id": 14256, "naam": "Bert"},
-  {"id": 987643, "naam": "Maaike"}
+  {"id": 14256, "naam": "Bert", "leeftijd": "22"},
+  {"id": 987643, "naam": "Maaike", "leeftijd": "23"}
 ];
 const geslacht = ["man","vrouw"];
 const leeftijd = ["20-30", "30-40", "40-50", "50+"];
 const gebruiker = 2;
 
+const games = [
+  {
+    gameNaam: "a",
+    gameUrl: "public/images/71yW6lB4B5L._AC_SL1500_.jpg"
+  },
+  {
+    gameNaam: "b",
+    gameUrl: "public/images/Call-of-Duty-1.jpg"
+  },
+  {
+    gameNaam: "c",
+    gameUrl: "public/images/71RFxsydGTL._AC_SL1417_.jpg"
+  }
+];
 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(express.static('static'));
@@ -110,6 +124,20 @@ app.post('/vragen', async (req,res) => {
 
 app.get('/filter', (req, res) => {
   res.render('filter',{geslacht, leeftijd});
+});
+
+// Profiel pagina
+app.get('/profiel', (req, res) => {
+  res.render('profiel',{person, games});
+});
+
+// Profiel pagina
+app.get('/aanpassenprofiel', (req, res) => {
+  res.render('aanpassenprofiel',{person, games});
+});
+
+app.post('/aanpassenprofiel', (req, res) => {
+  res.render('aanpassenprofiel',{person, games});
 });
 
 app.post('/filter', async (req,res) => {

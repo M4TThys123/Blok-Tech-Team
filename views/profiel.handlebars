@@ -1,0 +1,27 @@
+<section>
+        <h1>Icebreaker</h1>
+        <p>Personaliseer je profiel</p>
+    </section>
+
+
+    <section id="profiel">
+        <img src="{{this.profielAfbeelding}}">
+            <p>{{this.person.0.naam}}</p>
+            <p>{{this.person.0.leeftijd}} jaar</p>
+        <a class="button" href="aanpassenprofiel">Aanpassen</a>
+    </section>
+
+    <section id="movies">
+        <h2>Favorieten games</h2>
+
+        <ul>
+        {{#each games}}  
+            <li><img src="{{this.gameUrl}}" alt="{{this.gameNaam}}"></li>
+        {{/each}}
+        </ul>
+
+        <a class="button" href="aanpassenGames">Aanpassen</a>
+
+    </section>  
+
+
