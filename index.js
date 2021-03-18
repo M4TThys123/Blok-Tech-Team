@@ -16,7 +16,7 @@ async function connectDB() {
     // Get data from database
     await client.connect();
     console.log("Connected correctly to server");
-    db = await client.db(process.env.DB_NAME);
+    db = client.db(process.env.DB_NAME);
 }
 connectDB()
 .then(() => {
@@ -113,7 +113,8 @@ app.post('/q&a', async (req,res) => {
 app.get('/chat', async (req, res) => {
   // takes the last match and sets it into an array
   var lastItem = await db.collection('matches').find().limit(1).sort({$natural:-1}).toArray();
-res.render('chat', {lastItem});
+  const chat = 'current';
+res.render('chat', {lastItem, chat});
 });
 
   app.get('/vragen', (req, res) => {
@@ -135,7 +136,8 @@ app.get('/filter', (req, res) => {
 app.get('/profiel', async (req, res) => {
   // Krijg profiel 1
 const person2 = await db.collection('people').findOne();
-  res.render('profiel',{person2, games});
+const profielpagina = 'current';
+  res.render('profiel',{person2, games, profielpagina});
 });
 
 // Profiel pagina
