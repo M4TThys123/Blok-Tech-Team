@@ -5,6 +5,7 @@ const port = 3000;
 var bodyParser = require('body-parser');
 const dotenv = require('dotenv').config();
 const { MongoClient } = require('mongodb');
+const ObjectId = require('mongodb').ObjectID;
 
 
 let db = null;
@@ -51,6 +52,8 @@ const games = [
     gameUrl: "public/images/71RFxsydGTL._AC_SL1417_.jpg"
   }
 ];
+
+const huidigeGebruikerId = "603fb9c67d5fab08997fc484";
 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(express.static('static'));
@@ -136,8 +139,17 @@ app.get('/aanpassenprofiel', (req, res) => {
   res.render('aanpassenprofiel',{person, games});
 });
 
-app.post('/aanpassenprofiel', (req, res) => {
-  res.render('aanpassenprofiel',{person, games});
+app.post('/aanpassenprofiel', async (req, res) => {
+  await db.collection('people').updateOne(
+   { _id: ObjectId(huidigeGebruikerId) },
+   {
+     $set: {
+       naam: req.body.naam,
+       leeftijd: req.body.leeftijd
+     }
+   }
+  )
+  res.redirect('/aanpassenprofiel');
 });
 
 app.post('/filter', async (req,res) => {
