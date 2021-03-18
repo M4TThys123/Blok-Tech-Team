@@ -11,33 +11,12 @@ var { MongoClient } = require("mongodb");
 var ObjectId = require('mongodb').ObjectID;
 var client = new MongoClient(process.env.DB_URI);
 
-// Get info from database
-var db;
-// collection people
-var col;
-// collection movies
-var colm;
-// Movie info
-var movie;
-// After login get currrentUser id
-var currrentUser;
-// list of movies
-var movies;
-// get curent user favorite moviename
-var usermovies;
-
 // function connectDB
 async function connectDB() {
     // Get data from database
     await client.connect();
     console.log("Connected correctly to server");
     db = await client.db(process.env.DB_NAME);
-    col = db.collection("people");
-    person = await col.findOne();
-    colm = db.collection("movies");
-    movie = await colm.findOne();
-    currrentUser = "603fb9c67d5fab08997fc484";
-    movies = await colm.find({}, { }).toArray();
 }
 connectDB()
 .then(() => {
