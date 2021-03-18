@@ -72,12 +72,10 @@ app.get('/', async (req, res) => {
     const filter = {geslacht: result.geslacht, leeftijdcategory: result.leeftijd}; 
     // haalt alle profielen de voldoen aan het filter uit de database op en stopt ze in een array
     profielen = await db.collection('profielen').find(filter).toArray();
-    res.render('home', {profielen})
+    const match = 'current';
+    res.render('home', {profielen, match})
   });
 });
-
-
-
 
 app.get('/q&a', async (req, res) => {
   var vragen = [];
@@ -94,7 +92,7 @@ app.get('/q&a', async (req, res) => {
       randVraag.push(vraagHolder);
     }
   }
-  res.render('questions', {randVraag});
+  res.render('questions', {randVraag, page});
 });
 
 app.post('/q&a', async (req,res) => {
