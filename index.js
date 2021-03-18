@@ -15,8 +15,6 @@ var client = new MongoClient(process.env.DB_URI);
 var db;
 // collection people
 var col;
-// Person info
-var person;
 // collection movies
 var colm;
 // Movie info
@@ -99,95 +97,7 @@ app.get('/', async (req, res) => {
   });
 });
 
-// When going to profiel.html when node is running your wil be redirected to a dynamic template
-app.get('/profiel', async (req, res) => {
 
-  var person = await col.findOne();
-  var favoritemovies = (person.favoritemovies );
-
-  console.log(favoritemovies);
-
-  res.render('profiel', {
-      name: person.name,
-      age: person.age,
-      movies: movies,
-      favoritemovies: favoritemovies
-  })
-
-});
-
-// Render template changeinfo with database values 
-app.get('/changeinfo', async (req, res) => {
-
-  await client.connect();
-  res.render('changeinfo', {
-      name: person.name,
-      age: person.age
-  })
-});
-
-// Update name and age from database and render template again
-app.post('/bedankt2', async (req, res) => {
-  
-
-  col.updateOne(
- { _id: ObjectId(currrentUser) },
- {
-   $set: {
-     name: req.body.name,
-     age: req.body.age
-   }
- }
-)
-
-  res.render('changeinfo', {
-      name: req.body.name,
-      age: req.body.age
-  })
-
-});
-
-
-// Render template with movies name and image url
-app.get('/changemovie', async (req, res) => {
-
-  var person = await col.findOne();
-  var favoritemovies = (person.favoritemovies );
-
-  res.render('changemovie', {
-      movies: movies,
-      favoritemovies: favoritemovies
-  })
-});
-
-
-// Add movie to database with form
-app.post('/addmovie', async (req, res) => {
-
-  col.updateOne(
- { _id: ObjectId(currrentUser) },
- {
-   $addToSet: {
-     favoritemovies: req.body.moviename
-   }
- }
-)
-
-  res.redirect('/changemovie');
-
-});
-
-// Remove movie from database with form
-app.post('/removemovie', async (req, res) => {
-
-
-  col.update(
-{ _id: ObjectId(currrentUser) },
-{$pull: { favoritemovies: req.body.moviename }}
-)
-
-     res.redirect('/changemovie');
-});
 
 
 app.get('/q&a', async (req, res) => {
