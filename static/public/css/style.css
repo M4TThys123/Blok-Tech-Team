@@ -250,12 +250,7 @@ footer form #submitText {
     justify-content: center;
 }
 
-section{
-    display: flex;
-    flex-direction: column;
-}
-
-a img{
+.match a img{
     max-height: 2em;
 }
 
@@ -271,7 +266,7 @@ fieldset {
     border: 0;
 }
 
-article{
+.match article{
     margin: 0.5em;
     padding: 1em;
     background-color: #B8C5CE;
@@ -281,19 +276,23 @@ article{
     background-color: #B8C5CE;
     margin: 2em 0;
     padding: 1em;
+    display: flex;
+    flex-direction: column;
 }
 
 .match {
     padding: 0 0 5em 0;
+    display: flex;
+    flex-direction: column;
 }
 
-section div{
+.match div{
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
 }
 
-section div img{
+.match div img{
     border-radius: 200px;
     padding: 0.5em;
     max-height: 5em;
