@@ -290,4 +290,5 @@ main #chat #msg2::before { /*https://codingislove.com/css-speech-bubbles/*/
     padding: 0.5em;
     background-color: #257EBB;
     border-radius: 1.5em;
+    color: white;
 }
