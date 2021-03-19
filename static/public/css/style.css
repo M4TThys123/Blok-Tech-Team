@@ -37,12 +37,9 @@ main {
 
 /*navigatie fixed*/
 nav{
-    background-color: white;
     width: 100vw;
     padding: 15px 35px;
     position: fixed;
-    bottom: 0;
-    border-top: 1px solid;
 }
 
 nav ul{
@@ -62,6 +59,13 @@ nav ul li img {
 
 nav ul li:hover img, .current {
 filter: invert(43%) sepia(25%) saturate(1279%) hue-rotate(161deg) brightness(97%) contrast(100%);
+}
+
+#main_nav {
+    border-top: 1px solid;
+    background-color: white;
+    bottom: 0;
+
 }
 
 #chat {
@@ -205,12 +209,12 @@ main #chat #msg2::before { /*https://codingislove.com/css-speech-bubbles/*/
 #chat_footer, #add_footer {
     position: absolute;
     width: 100%;
-    border-top: 1px solid black;
     display: flex;
     flex-direction: row;
     align-items: center;
     bottom: 0;
     left: 0;
+    border-top: 1px solid black;
 }
 
 #chat_footer a img {
@@ -277,4 +281,13 @@ main #chat #msg2::before { /*https://codingislove.com/css-speech-bubbles/*/
 #add_footer {
     display: flex;
     justify-content: center;
+}
+
+#ice_button {
+    position: absolute;
+    bottom: 10%;
+    left: 30%;
+    padding: 0.5em;
+    background-color: #257EBB;
+    border-radius: 1.5em;
 }
