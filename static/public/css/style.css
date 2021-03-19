@@ -314,6 +314,24 @@ section#movies img {
  width: 100%;
 }
 
+/*add movie select movie*/
+section#addMovies ul {
+    display: flex;
+    list-style: none;
+}
+
+section#addMovies ul li {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+}
+
+section#addMovies ul li img {
+    width: 33%;
+}
+
+
+
 #add_footer {
     display: flex;
     justify-content: center;
