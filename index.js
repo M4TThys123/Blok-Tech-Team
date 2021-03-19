@@ -67,7 +67,7 @@ app.use(express.static('static'));
 app.engine('handlebars', exphbs());
 app.set("view engine", 'handlebars');
 
-app.get('/', async (req, res) => {
+app.get('/match', async (req, res) => {
   let profielen = {}
 
   // haalt je voorkeur uit de database
@@ -104,6 +104,7 @@ app.get('/profiel', async (req, res) => {
 // 
 app.get('/chat_home', async (req, res) => {
  
+console.log (movies);
 
   res.render('chat_home', {
       name: person.name,
@@ -111,6 +112,16 @@ app.get('/chat_home', async (req, res) => {
   })
 
 });
+
+app.get('/', async (req, res) => {
+ 
+  console.log (movies);
+  
+    res.render('login', {
+
+    })
+  
+  });
 
 // Render template changeinfo with database values 
 app.get('/changeinfo', async (req, res) => {
