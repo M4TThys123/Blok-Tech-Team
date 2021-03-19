@@ -101,6 +101,17 @@ app.get('/profiel', async (req, res) => {
 
 });
 
+// 
+app.get('/chat_home', async (req, res) => {
+ 
+
+  res.render('chat_home', {
+      name: person.name,
+      games: movies
+  })
+
+});
+
 // Render template changeinfo with database values 
 app.get('/changeinfo', async (req, res) => {
 
