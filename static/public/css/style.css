@@ -32,7 +32,19 @@ header h1 {
 }
 
 main {
-    height: 75%;
+    padding: 35px;
+    display: flex;
+    flex-direction: column;
+    gap: 3em;
+    padding-bottom: 100px;
+}
+
+a.button {
+    background-color: #287CB9;
+    color: white;
+    padding: 7px;
+    border-radius: 20px;
+    width: max-content;
 }
 
 /*navigatie fixed*/
@@ -43,6 +55,7 @@ nav{
     position: fixed;
     bottom: 0;
     border-top: 1px solid;
+
 }
 
 nav ul{
@@ -272,6 +285,33 @@ main #chat #msg2::before { /*https://codingislove.com/css-speech-bubbles/*/
     margin-top: 01em;
     padding: 0.5em 1.5em;
     font-size: 1.25em;
+}
+
+
+/*Profiel pagina*/
+section#profiel {
+    display: flex;
+    flex-direction: column;
+        gap: 10px;
+}
+
+section#movies{
+    display: flex;
+    flex-direction: column;
+        gap: 10px;
+}
+
+section#movies ul {
+display: flex;
+    gap: 10px;
+}
+
+section#movies li {
+    list-style: none;
+       width: 30vw;
+}
+section#movies img {
+ width: 100%;
 }
 
 #add_footer {

@@ -4,11 +4,9 @@
 	</section>
 
 	<section id="profiel">
-		<img src="images/pexels-photo-220453.jpeg">
-		<ul>
-			<li>{{name}}</li>
-			<li>{{age}} jaar</li>
-		</ul>
+		<img src="public/images/pexels-photo-220453.jpeg">
+			<p>{{name}}</p>
+			<p>{{age}} jaar</p>
 		<a class="button" href="changeinfo">Aanpassen</a>
 	</section>
 
@@ -18,7 +16,7 @@
 		<ul>
 			{{#each favoritemovies}}  
 				<li>
-                     <img src="images/{{this}}.jpg" alt={{this}}>
+                     <img src="public/images/{{this}}.jpg" alt={{this}}>
                 </li>
                 {{/each}}
         </ul>
