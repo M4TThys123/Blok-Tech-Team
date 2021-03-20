@@ -82,6 +82,22 @@ app.get('/', async (req, res) => {
 // When going to profiel.html when node is running your wil be redirected to a dynamic template
 app.get('/profiel', async (req, res) => {
 
+  const sanityClient = require('@sanity/client')
+const client2 = sanityClient({
+  projectId: '5wst6igf',
+  dataset: 'production',
+  token: '', // or leave blank to be anonymous user
+  useCdn: true // `false` if you want to ensure fresh data
+})
+
+const query = '*[_type == "movie"]{title}'
+
+client2.fetch(query).then(Games => {
+  Games.forEach(game => {
+    console.log(game.title)
+  })
+})
+
   var person = await col.findOne();
   var favoritemovies = (person.favoritemovies );
 
