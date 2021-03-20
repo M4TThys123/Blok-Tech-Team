@@ -20,14 +20,16 @@
 		<h2>Games toevoegen</h2>	
         <form action="/addmovie" method="POST">
             <ul>
-                {{#each movies}}  
-                <li>
-	                <input type="checkbox" name="moviename" value="{{this.moviename}}" />
+			{{#each movies}}  
+				<li>
+                     <input type="checkbox" name="moviename" value="{{this.moviename}}" />
+	                <h3>{{this.moviename}}</h3>
 					<label for="myCheckbox1"><img src="public/images/{{this.moviename}}.jpg" /></label>
-            	<li/>
-                  {{/each}}
-            </ul>
-              <input type="submit">    
+                </li>
+                {{/each}}
+        	</ul>
+
+              <input class="button" type="submit">    
         </form>
     </section>
 
@@ -36,17 +38,16 @@
 		<h2>Games verwijderen</h2>
 
 		<form action="/removemovie" method="POST">
-		<ul>
-                {{#each favoritemovies}}  
-                <li>
-	                <input type="checkbox" name="moviename" value="{{this}}" />
+            <ul>
+			{{#each favoritemovies}}  
+				<li>
+                     <input type="checkbox" name="moviename" value="{{this}}" />
+	                <h3>{{this}}</h3>
 					<label for="myCheckbox1"><img src="public/images/{{this}}.jpg" /></label>
-            	<li/>
-                  {{/each}}
-            </ul>
-		
-			<br><br>
-			<input type="submit">
+                </li>
+                {{/each}}
+        </ul>
+			<input class="button" type="submit">
 		</form>
 	</section>	
 

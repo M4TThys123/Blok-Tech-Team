@@ -39,12 +39,19 @@ main {
     padding-bottom: 100px;
 }
 
-a.button {
+a.button, button, .button{
     background-color: #287CB9;
     color: white;
     padding: 7px;
     border-radius: 20px;
     width: max-content;
+    border: none;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 /*navigatie fixed*/
@@ -293,9 +300,20 @@ main #chat #msg2::before { /*https://codingislove.com/css-speech-bubbles/*/
 
 /*Profiel pagina*/
 section#profiel {
-    display: flex;
-    flex-direction: column;
-        gap: 10px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 10px;
+}
+
+section#profiel img {
+    border-radius: 50%;
+    width: 100%;
+}
+
+
+section#profiel p {
+    grid-column: 2;
+align-self: center;
 }
 
 section#movies{
@@ -318,22 +336,48 @@ section#movies img {
 }
 
 /*add movie select movie*/
-section#addMovies ul {
+section#addMovies {
     display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+section#addMovies ul {
+    display: grid;
     list-style: none;
+    gap: 10px;
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
 section#addMovies ul li {
     display: flex;
     flex-direction: column-reverse;
     align-items: center;
+        text-align: center;
+    gap: 8px;
+    position: relative;
+}
+
+section#addMovies ul li input[type="checkbox"] {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 20px;
+    height: 20px;
 }
 
 section#addMovies ul li img {
-    width: 33%;
+    width: 100%;
 }
 
+section#addMovies label {
+    text-align: -webkit-center;
+}
 
+section#addMovies h3 {
+    font-size: 15px;
+    min-height: 40px;
+}
 
 #add_footer {
     display: flex;
