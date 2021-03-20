@@ -190,7 +190,7 @@ app.get('/q&a', async (req, res) => {
       randVraag.push(vraagHolder);
     }
   }
-  res.render('questions', {randVraag, page});
+  res.render('questions', {randVraag, layout: 'chat_layout.handlebars'});
 });
 
 app.post('/q&a', async (req,res) => {
@@ -204,14 +204,14 @@ app.post('/q&a', async (req,res) => {
 }).catch(function(error){
     res.send(error);
 })
-  res.render('questions', {questAndAnswer});
+  res.render('questions', {questAndAnswer, layout: 'chat_layout.handlebars'});
 });
 
 
 app.get('/chat', async (req, res) => {
   // takes the last match and sets it into an array
   var lastItem = await db.collection('matches').find().limit(1).sort({$natural:-1}).toArray();
-res.render('chat', {lastItem});
+res.render('chat', {lastItem, layout: 'chat_layout.handlebars'});
 });
 
   app.get('/vragen', (req, res) => {
