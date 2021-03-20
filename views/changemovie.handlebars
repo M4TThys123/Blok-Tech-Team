@@ -22,9 +22,9 @@
             <ul>
 			{{#each movies}}  
 				<li>
-                     <input type="checkbox" name="moviename" value="{{this.moviename}}" />
+                     <input type="checkbox" name="moviename" value="{{this.title}}" />
 	                <h3>{{this.moviename}}</h3>
-					<label for="myCheckbox1"><img src="public/images/{{this.moviename}}.jpg" /></label>
+					<label for="myCheckbox1"><img src="https://cdn.sanity.io/images/5wst6igf/production/{{this.poster.asset._ref}}" /></label>
                 </li>
                 {{/each}}
         	</ul>
