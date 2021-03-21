@@ -4,52 +4,64 @@ const app = express();
 const port = 3000;
 var bodyParser = require('body-parser');
 const dotenv = require('dotenv').config();
-// const { MongoClient } = require('mongodb');
+const mongoose = require('mongoose');
+mongoose.connect(process.env.DB_URI, {useNewUrlParser: true, useUnifiedTopology: true});
+const voorkeur = require('./models/voorkeur');
+const profiel = require('./models/profiel');
 
 // Connect database with .env username and password
 var { MongoClient } = require("mongodb");
 var ObjectId = require('mongodb').ObjectID;
 var client = new MongoClient(process.env.DB_URI);
 
-// Get info from database
-var db;
-// collection people
-var col;
-// Person info
-var person;
-// collection movies
-var colm;
-// Movie info
-var movie;
-// After login get currrentUser id
-var currrentUser;
-// list of movies
-var movies;
-// get curent user favorite moviename
-var usermovies;
+// // Get info from database
+// // var db;
+// // collection people
+// var col;
+// // Person info
+// var person;
+// // collection movies
+// var colm;
+// // Movie info
+// var movie;
+// // After login get currrentUser id
+// var currrentUser;
+// // list of movies
+// var movies;
+// // get curent user favorite moviename
+// var usermovies;
 
-// function connectDB
-async function connectDB() {
-    // Get data from database
-    await client.connect();
-    console.log("Connected correctly to server");
-    db = await client.db(process.env.DB_NAME);
-    col = db.collection("people");
-    person = await col.findOne();
-    colm = db.collection("movies");
-    movie = await colm.findOne();
-    currrentUser = "603fb9c67d5fab08997fc484";
-    movies = await colm.find({}, { }).toArray();
-}
-connectDB()
-.then(() => {
-  // if the connection was successfull, show:
-  console.log("we have landed");
-})
-.catch ( error => {
-  // if the connection fails, send error message
-  console.log(error);
+// // function connectDB
+// async function connectDB() {
+//     // Get data from database
+//     await client.connect();
+//     console.log("Connected correctly to server");
+//     db = await client.db(process.env.DB_NAME);
+//     col = db.collection("people");
+//     person = await col.findOne();
+//     colm = db.collection("movies");
+//     movie = await colm.findOne();
+//     currrentUser = "603fb9c67d5fab08997fc484";
+//     movies = await colm.find({}, { }).toArray();
+// }
+// connectDB()
+// .then(() => {
+//   // if the connection was successfull, show:
+//   console.log("we have landed");
+// })
+// .catch ( error => {
+//   // if the connection fails, send error message
+//   console.log(error);
+// });
+
+//Mongoose DB connectie
+const mongodb = mongoose.connection;
+mongodb.on('error', console.error.bind(console, 'connection error:'));
+mongodb.once('open', function() {
+  // we're connected!
+  console.log('connected');
 });
+
 
 // a little array to mimic real accounts
 // const person = [
@@ -71,7 +83,7 @@ app.get('/', async (req, res) => {
   let profielen = {}
 
   // haalt je voorkeur uit de database
-  db.collection('voorkeur').findOne({id: gebruiker}, async function(err, result) {
+    db.collection('voorkeur').findOne({id: gebruiker}, async function(err, result) {
     if (err) throw err;
     // filter op geslacht en leeftijd
     const filter = {geslacht: result.geslacht, leeftijdcategory: result.leeftijd}; 
@@ -80,6 +92,18 @@ app.get('/', async (req, res) => {
     const match = 'current';
     res.render('home', {profielen, match})
   });
+});
+
+
+app.get('/voorkeur', async (req, res) => {
+// console.log(voorkeur)
+    // voorkeur.updateOne( { geslacht: "vrouw", leeftijd: "20-30", platform: "Playstation"} );
+// let voorkeurd = {}
+ const voorkeurd = await voorkeur.find({}).lean();
+  console.log(voorkeurd);
+  console.log(profiel); 
+
+  res.render('voorkeur', { voorkeurList: voorkeurd });
 });
 
 // When going to profiel.html when node is running your wil be redirected to a dynamic template
