@@ -4,17 +4,17 @@
 	</section>
 
 
-	<section id="movies">
+<!-- 	<section id="movies">
 		<h2>Favorieten games</h2>
 
 		<ul>
 			{{#each favoritemovies}} 
 				<li>
-                    <img src="public/images/{{this}}.jpg" alt={{this}}>
+                    <img src="{{this}}" >
                 </li>
             {{/each}}
         </ul>
-	</section>	
+	</section>	 -->
 
 	<section id="addMovies">
 		<h2>Games toevoegen</h2>	
@@ -22,9 +22,9 @@
             <ul>
 			{{#each movies}}  
 				<li>
-                     <input type="checkbox" name="moviename" value="{{this.title}}" />
-	                <h3>{{this.moviename}}</h3>
-					<label for="myCheckbox1"><img src="https://cdn.sanity.io/images/5wst6igf/production/{{this.poster.asset._ref}}" /></label>
+                     <input type="checkbox" name="moviename" value="{{this.posterUrl}}" />
+	                <h3>{{this.name}}</h3>
+					<label for="myCheckbox1"><img src="{{this.posterUrl}}" /></label>
                 </li>
                 {{/each}}
         	</ul>
@@ -42,8 +42,8 @@
 			{{#each favoritemovies}}  
 				<li>
                      <input type="checkbox" name="moviename" value="{{this}}" />
-	                <h3>{{this}}</h3>
-					<label for="myCheckbox1"><img src="public/images/{{this}}.jpg" /></label>
+	                <!-- <h3>{{this}}</h3> -->
+					<label for="myCheckbox1"><img src="{{this}}" /></label>
                 </li>
                 {{/each}}
         </ul>

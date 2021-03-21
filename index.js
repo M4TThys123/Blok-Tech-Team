@@ -145,7 +145,9 @@ const client2 = sanityClient({
 var cmsgames;
 
 // Data ophalen uit het cms
-const query = '*[_type == "movie"]{title,poster{asset{_ref}}}'
+const query = "*[_type == 'games']{name, 'posterUrl': poster.asset->url}"
+
+// *[_type == 'movie']{title, 'posterUrl': poster.asset->url} 
 await client2.fetch(query).then(games => {
   cmsgames = games;
 })

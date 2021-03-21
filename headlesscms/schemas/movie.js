@@ -49,6 +49,14 @@ export default {
       },
     },
     {
+      name: 'poster2',
+      title: 'Poster2 Image',
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
+    },
+    {
       name: 'castMembers',
       title: 'Cast Members',
       type: 'array',
