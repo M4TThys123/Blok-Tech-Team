@@ -4,19 +4,42 @@ const app = express();
 const port = 3000;
 var bodyParser = require('body-parser');
 const dotenv = require('dotenv').config();
-const { MongoClient } = require('mongodb');
+// const { MongoClient } = require('mongodb');
 
+// Connect database with .env username and password
+var { MongoClient } = require("mongodb");
+var ObjectId = require('mongodb').ObjectID;
+var client = new MongoClient(process.env.DB_URI);
 
-let db = null;
+// Get info from database
+var db;
+// collection people
+var col;
+// Person info
+var person;
+// collection movies
+var colm;
+// Movie info
+var movie;
+// After login get currrentUser id
+var currrentUser;
+// list of movies
+var movies;
+// get curent user favorite moviename
+var usermovies;
+
 // function connectDB
 async function connectDB() {
-  // Get URI from .env file
-  const uri = process.env.DB_URI;
-  // make connection to the db
-  const options = { useUnifiedTopology: true };
-  const client = new MongoClient(uri,options);
-  await client.connect();
-  db = await client.db(process.env.DB_NAME);
+    // Get data from database
+    await client.connect();
+    console.log("Connected correctly to server");
+    db = await client.db(process.env.DB_NAME);
+    col = db.collection("people");
+    person = await col.findOne();
+    colm = db.collection("movies");
+    movie = await colm.findOne();
+    currrentUser = "603fb9c67d5fab08997fc484";
+    movies = await colm.find({}, { }).toArray();
 }
 connectDB()
 .then(() => {
@@ -29,10 +52,10 @@ connectDB()
 });
 
 // a little array to mimic real accounts
-const person = [
-  {"id": 14256, "naam": "Bert"},
-  {"id": 987643, "naam": "Maaike"}
-];
+// const person = [
+//   {"id": 14256, "naam": "Bert"},
+//   {"id": 987643, "naam": "Maaike"}
+// ];
 const geslacht = ["man","vrouw"];
 const leeftijd = ["20-30", "30-40", "40-50", "50+"];
 const gebruiker = 2;
@@ -54,9 +77,103 @@ app.get('/', async (req, res) => {
     const filter = {geslacht: result.geslacht, leeftijdcategory: result.leeftijd}; 
     // haalt alle profielen de voldoen aan het filter uit de database op en stopt ze in een array
     profielen = await db.collection('profielen').find(filter).toArray();
-    res.render('home', {profielen})
+    const match = 'current';
+    res.render('home', {profielen, match})
   });
 });
+
+// When going to profiel.html when node is running your wil be redirected to a dynamic template
+app.get('/profiel', async (req, res) => {
+
+  var person = await col.findOne();
+  var favoritemovies = (person.favoritemovies );
+
+  console.log(favoritemovies);
+  const profielpagina = 'current';
+
+  res.render('profiel', {
+      name: person.name,
+      age: person.age,
+      movies: movies,
+      favoritemovies: favoritemovies,
+      profielpagina
+  })
+
+});
+
+// Render template changeinfo with database values 
+app.get('/changeinfo', async (req, res) => {
+
+  await client.connect();
+  res.render('changeinfo', {
+      name: person.name,
+      age: person.age
+  })
+});
+
+// Update name and age from database and render template again
+app.post('/bedankt2', async (req, res) => {
+  
+
+  col.updateOne(
+ { _id: ObjectId(currrentUser) },
+ {
+   $set: {
+     name: req.body.name,
+     age: req.body.age
+   }
+ }
+)
+
+  res.render('changeinfo', {
+      name: req.body.name,
+      age: req.body.age
+  })
+
+});
+
+
+// Render template with movies name and image url
+app.get('/changemovie', async (req, res) => {
+
+  var person = await col.findOne();
+  var favoritemovies = (person.favoritemovies );
+
+  res.render('changemovie', {
+      movies: movies,
+      favoritemovies: favoritemovies
+  })
+});
+
+
+// Add movie to database with form
+app.post('/addmovie', async (req, res) => {
+
+  col.updateOne(
+ { _id: ObjectId(currrentUser) },
+ {
+   $addToSet: {
+     favoritemovies: req.body.moviename
+   }
+ }
+)
+
+  res.redirect('/changemovie');
+
+});
+
+// Remove movie from database with form
+app.post('/removemovie', async (req, res) => {
+
+
+  col.update(
+{ _id: ObjectId(currrentUser) },
+{$pull: { favoritemovies: req.body.moviename }}
+)
+
+     res.redirect('/changemovie');
+});
+
 
 app.get('/q&a', async (req, res) => {
   var vragen = [];
@@ -73,7 +190,7 @@ app.get('/q&a', async (req, res) => {
       randVraag.push(vraagHolder);
     }
   }
-  res.render('questions', {randVraag});
+  res.render('questions', {randVraag, layout: 'chat_layout.handlebars'});
 });
 
 app.post('/q&a', async (req,res) => {
@@ -87,14 +204,14 @@ app.post('/q&a', async (req,res) => {
 }).catch(function(error){
     res.send(error);
 })
-  res.render('questions', {questAndAnswer});
+  res.render('questions', {questAndAnswer, layout: 'chat_layout.handlebars'});
 });
 
 
 app.get('/chat', async (req, res) => {
   // takes the last match and sets it into an array
   var lastItem = await db.collection('matches').find().limit(1).sort({$natural:-1}).toArray();
-res.render('chat', {lastItem});
+res.render('chat', {lastItem, layout: 'chat_layout.handlebars'});
 });
 
   app.get('/vragen', (req, res) => {

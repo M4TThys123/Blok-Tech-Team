@@ -7,6 +7,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com"> 
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/public/css/style.css">
+    <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"><!--https://fontawesome.com/icons?d=gallery-->
     <title>Game match</title>
 </head>
 <body>
@@ -16,11 +18,11 @@
     <main>
     {{{body}}}
    </main>
-     <nav>
+     <nav id="main_nav">
         <ul>
-            <a><li><img src="/public/images/conversation.svg">Chat</li></a>
-            <a href="/"><li><img src="/public/images/pawprint.svg">Match</li></a>
-            <a><li><img src="/public/images/user.svg">Profile</li></a>
+            <a href="/chat"><li><img src="/public/images/chat.svg">Chat</li></a>
+            <a href="/"><li><img src="/public/images/hart.svg" class="{{ match }}">Match</li></a>
+            <a href="/profiel"><li><img src="/public/images/user.svg" class="{{ profielpagina }}">Profile</li></a>
         </ul>
     </nav>
 </body>
