@@ -384,6 +384,10 @@ section#addMovies h3 {
     justify-content: center;
 }
 
+#profileimage {
+    width: 100%
+}
+
 .match a img{
     max-height: 2em;
 }

@@ -55,6 +55,7 @@ connectDB()
 // ];
 const geslacht = ["man","vrouw"];
 const leeftijd = ["20-30", "30-40", "40-50", "50+"];
+const platform = ["PC", "Playstation", "Xbox"];
 const gebruiker = 2;
 
 
@@ -70,8 +71,8 @@ app.get('/', async (req, res) => {
   // haalt je voorkeur uit de database
   db.collection('voorkeur').findOne({id: gebruiker}, async function(err, result) {
     if (err) throw err;
-    // filter op geslacht en leeftijd
-    const filter = {geslacht: result.geslacht, leeftijdcategory: result.leeftijd}; 
+    // filter op geslacht, leeftijd en platform
+    const filter = {geslacht: result.geslacht, leeftijdcategory: result.leeftijd, platform: result.platform}; 
     // haalt alle profielen de voldoen aan het filter uit de database op en stopt ze in een array
     profielen = await db.collection('profielen').find(filter).toArray();
     const match = 'current';
@@ -248,7 +249,7 @@ app.post('/vragen', async (req,res) => {
 });
 
 app.get('/filter', (req, res) => {
-  res.render('filter',{geslacht, leeftijd});
+  res.render('filter',{geslacht, leeftijd, platform});
 });
 
 app.post('/filter', async (req,res) => {
