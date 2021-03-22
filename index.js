@@ -14,45 +14,45 @@ var { MongoClient } = require("mongodb");
 var ObjectId = require('mongodb').ObjectID;
 var client = new MongoClient(process.env.DB_URI);
 
-// // Get info from database
-// // var db;
-// // collection people
-// var col;
-// // Person info
-// var person;
-// // collection movies
-// var colm;
-// // Movie info
-// var movie;
-// // After login get currrentUser id
-// var currrentUser;
-// // list of movies
-// var movies;
-// // get curent user favorite moviename
-// var usermovies;
+// Get info from database
+// var db;
+// collection people
+var col;
+// Person info
+var person;
+// collection movies
+var colm;
+// Movie info
+var movie;
+// After login get currrentUser id
+var currrentUser;
+// list of movies
+var movies;
+// get curent user favorite moviename
+var usermovies;
 
-// // function connectDB
-// async function connectDB() {
-//     // Get data from database
-//     await client.connect();
-//     console.log("Connected correctly to server");
-//     db = await client.db(process.env.DB_NAME);
-//     col = db.collection("people");
-//     person = await col.findOne();
-//     colm = db.collection("movies");
-//     movie = await colm.findOne();
-//     currrentUser = "603fb9c67d5fab08997fc484";
-//     movies = await colm.find({}, { }).toArray();
-// }
-// connectDB()
-// .then(() => {
-//   // if the connection was successfull, show:
-//   console.log("we have landed");
-// })
-// .catch ( error => {
-//   // if the connection fails, send error message
-//   console.log(error);
-// });
+// function connectDB
+async function connectDB() {
+    // Get data from database
+    await client.connect();
+    console.log("Connected correctly to server");
+    db = await client.db(process.env.DB_NAME);
+    col = db.collection("people");
+    person = await col.findOne();
+    colm = db.collection("movies");
+    movie = await colm.findOne();
+    currrentUser = "603fb9c67d5fab08997fc484";
+    movies = await colm.find({}, { }).toArray();
+}
+connectDB()
+.then(() => {
+  // if the connection was successfull, show:
+  console.log("we have landed");
+})
+.catch ( error => {
+  // if the connection fails, send error message
+  console.log(error);
+});
 
 //Mongoose DB connectie
 const mongodb = mongoose.connection;
@@ -83,14 +83,15 @@ app.get('/', async (req, res) => {
   let profielen = {}
 
   // haalt je voorkeur uit de database
-    db.collection('voorkeur').findOne({id: gebruiker}, async function(err, result) {
+    voorkeur.findOne({id: gebruiker}, async function(err, result) {
     if (err) throw err;
     // filter op geslacht en leeftijd
     const filter = {geslacht: result.geslacht, leeftijdcategory: result.leeftijd}; 
     // haalt alle profielen de voldoen aan het filter uit de database op en stopt ze in een array
-    profielen = await db.collection('profielen').find(filter).toArray();
+    profielen = profiel.find(filter).lean();
     const match = 'current';
-    res.render('home', {profielen, match})
+    console.log(profielen)
+    res.render('home', {profielList: profielen, match})
   });
 });
 
