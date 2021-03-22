@@ -384,6 +384,57 @@ section#addMovies h3 {
     justify-content: center;
 }
 
+.match a img{
+    max-height: 2em;
+}
+
+button{
+    background-color:#0E4C76;
+    color: #B8C5CE;
+    padding: 0.5em 2em;
+    border-radius: 10px;
+    font-size: 1em;
+}
+
+fieldset {
+    border: 0;
+}
+
+.match article{
+    margin: 0.5em;
+    padding: 1em;
+    background-color: #B8C5CE;
+}
+
+.filter {
+    background-color: #B8C5CE;
+    margin: 2em 0;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+}
+
+.match {
+    padding: 0 0 5em 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.match div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.match div img{
+    border-radius: 200px;
+    padding: 0.5em;
+    max-height: 5em;
+    margin: 1em;
+    width: 5em;
+    background-color: #0E4C76;
+} 
+
 #ice_button {
     position: absolute;
     bottom: 10%;
