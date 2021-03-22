@@ -16,8 +16,6 @@ var db;
 // collection people
 var col;
 // Person info
-var person;
-// collection movies
 var colm;
 // Movie info
 var movie;
@@ -35,7 +33,6 @@ async function connectDB() {
     console.log("Connected correctly to server");
     db = await client.db(process.env.DB_NAME);
     col = db.collection("people");
-    person = await col.findOne();
     colm = db.collection("movies");
     movie = await colm.findOne();
     currrentUser = "603fb9c67d5fab08997fc484";
@@ -88,7 +85,6 @@ app.get('/profiel', async (req, res) => {
   var person = await col.findOne();
   var favoritemovies = (person.favoritemovies );
 
-  console.log(favoritemovies);
   const profielpagina = 'current';
 
   res.render('profiel', {
@@ -104,7 +100,8 @@ app.get('/profiel', async (req, res) => {
 // Render template changeinfo with database values 
 app.get('/changeinfo', async (req, res) => {
 
-  await client.connect();
+  var person = await col.findOne();
+
   res.render('changeinfo', {
       name: person.name,
       age: person.age
@@ -115,7 +112,7 @@ app.get('/changeinfo', async (req, res) => {
 app.post('/bedankt2', async (req, res) => {
   
 
-  col.updateOne(
+  await col.updateOne(
  { _id: ObjectId(currrentUser) },
  {
    $set: {
@@ -149,14 +146,26 @@ app.get('/changemovie', async (req, res) => {
 // Add movie to database with form
 app.post('/addmovie', async (req, res) => {
 
-  col.updateOne(
+var str = req.body.moviename.toString();
+var arrayofgames = str.split(",");
+
+
+var i;
+for (i = 0; i < arrayofgames.length; i++) {
+
+if(req.body.moviename != null || arrayofgames[i] != "test" ){
+  await col.updateOne(
  { _id: ObjectId(currrentUser) },
  {
    $addToSet: {
-     favoritemovies: req.body.moviename
+     favoritemovies: arrayofgames[i]
    }
  }
 )
+
+}
+
+}
 
   res.redirect('/changemovie');
 
@@ -165,13 +174,26 @@ app.post('/addmovie', async (req, res) => {
 // Remove movie from database with form
 app.post('/removemovie', async (req, res) => {
 
+str = req.body.moviename.toString();
+var arrayofgames = str.split(",");
 
-  col.update(
+
+var i;
+for (i = 0; i < arrayofgames.length; i++) {
+
+if(req.body.moviename != null || arrayofgames[i] != "test" ){
+    await col.update(
 { _id: ObjectId(currrentUser) },
-{$pull: { favoritemovies: req.body.moviename }}
+{$pull: { favoritemovies: arrayofgames[i] }}
 )
 
+}
+
+}
+
+
      res.redirect('/changemovie');
+
 });
 
 
