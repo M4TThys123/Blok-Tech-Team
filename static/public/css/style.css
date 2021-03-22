@@ -278,3 +278,7 @@ main #chat #msg2::before { /*https://codingislove.com/css-speech-bubbles/*/
     display: flex;
     justify-content: center;
 }
+
+#profileimage {
+    width: 100%
+}
