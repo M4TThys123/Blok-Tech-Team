@@ -1,11 +1,11 @@
 	<section>
-		<h1>Films aanpassen</h1>
-		<p>Vewijder of voeg films toe aan favorieten</p>
+		<h1>Games aanpassen</h1>
+		<p>Vewijder of voeg games toe aan favorieten</p>
 	</section>
 
 
 	<section id="movies">
-		<h2>Favorieten films</h2>
+		<h2>Favorieten games</h2>
 
 		<ul>
 			{{#each favoritemovies}} 
@@ -16,32 +16,39 @@
         </ul>
 	</section>	
 
-	<section>
-		<h2>Film toevoegen</h2>	
+	<section id="addMovies">
+		<h2>Games toevoegen</h2>	
         <form action="/addmovie" method="POST">
-            <select name="moviename">
-                {{#each movies}}  
-            <option type="text" value={{this.moviename}}> {{this.moviename}}</option>
-                  {{/each}}
-            </select>
-              <input type="submit">    
+            <ul>
+			{{#each movies}}  
+				<li>
+                     <input type="checkbox" name="moviename" value="{{this.moviename}}" />
+	                <h3>{{this.moviename}}</h3>
+					<label for="myCheckbox1"><img src="public/images/{{this.moviename}}.jpg" /></label>
+                </li>
+                {{/each}}
+        	</ul>
+
+              <input class="button" type="submit">    
         </form>
     </section>
 
-		</main>
+    <section id="addMovies">
 
-	</section>	
-
-	<section>
-
-		<h2>Film verwijderen</h2>
+		<h2>Games verwijderen</h2>
 
 		<form action="/removemovie" method="POST">
-			<select name="moviename">
-                {{#each favoritemovies}}  
-					  <option type="text" value={{this}}> {{this}}</option>
+            <ul>
+			{{#each favoritemovies}}  
+				<li>
+                     <input type="checkbox" name="moviename" value="{{this}}" />
+	                <h3>{{this}}</h3>
+					<label for="myCheckbox1"><img src="public/images/{{this}}.jpg" /></label>
+                </li>
                 {{/each}}
-            </select>
-			<br><br>
-			<input type="submit">
+        </ul>
+			<input class="button" type="submit">
 		</form>
+	</section>	
+
+		</main>
