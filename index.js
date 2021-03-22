@@ -134,11 +134,33 @@ app.post('/bedankt2', async (req, res) => {
 // Render template with movies name and image url
 app.get('/changemovie', async (req, res) => {
 
+  // Verbinden met het cms
+const sanityClient = require('@sanity/client')
+const client2 = sanityClient({
+  projectId: '5wst6igf',
+  dataset: 'production',
+  token: '', // or leave blank to be anonymous user
+  useCdn: true // `false` if you want to ensure fresh data
+})
+
+var cmsgames;
+
+// Data ophalen uit het cms
+const query = "*[_type == 'games']{name, 'posterUrl': poster.asset->url}"
+
+// *[_type == 'movie']{title, 'posterUrl': poster.asset->url} 
+await client2.fetch(query).then(games => {
+  cmsgames = games;
+})
+
+console.log(cmsgames);
+
+
   var person = await col.findOne();
   var favoritemovies = (person.favoritemovies );
 
   res.render('changemovie', {
-      movies: movies,
+      movies: cmsgames,
       favoritemovies: favoritemovies
   })
 });

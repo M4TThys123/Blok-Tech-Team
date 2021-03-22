@@ -3,28 +3,15 @@
 		<p>Vewijder of voeg games toe aan favorieten</p>
 	</section>
 
-
-	<section id="movies">
-		<h2>Favorieten games</h2>
-
-		<ul>
-			{{#each favoritemovies}} 
-				<li>
-                    <img src="public/images/{{this}}.jpg" alt={{this}}>
-                </li>
-            {{/each}}
-        </ul>
-	</section>	
-
 	<section id="addMovies">
 		<h2>Games toevoegen</h2>	
         <form action="/addmovie" method="POST">
             <ul>
 			{{#each movies}}  
 				<li>
-                     <input type="checkbox" name="moviename" value="{{this.moviename}}" />
-	                <h3>{{this.moviename}}</h3>
-					<label for="myCheckbox1"><img src="public/images/{{this.moviename}}.jpg" /></label>
+                     <input type="checkbox" name="moviename" value="{{this.posterUrl}}" />
+	                <h3>{{this.name}}</h3>
+					<label for="myCheckbox1"><img src="{{this.posterUrl}}" /></label>
                 </li>
                 {{/each}}
         	</ul>
@@ -42,8 +29,7 @@
 			{{#each favoritemovies}}  
 				<li>
                      <input type="checkbox" name="moviename" value="{{this}}" />
-	                <h3>{{this}}</h3>
-					<label for="myCheckbox1"><img src="public/images/{{this}}.jpg" /></label>
+					<label for="myCheckbox1"><img src="{{this}}" /></label>
                 </li>
                 {{/each}}
         </ul>
