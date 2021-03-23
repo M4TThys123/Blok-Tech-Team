@@ -195,7 +195,7 @@ app.post('/verwijderGame', async (req, res) => {
   for (i = 0; i < arrayofgames.length; i++) {
 
     if(req.body.gameNaam != null || arrayofgames[i] != "test" ){
-      await col.update(
+      await col.updateOne(
       { _id: ObjectId(currrentUser) },
       {$pull: { favoritegames: arrayofgames[i] }}
       )
