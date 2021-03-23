@@ -5,21 +5,20 @@
 
 	<section id="profiel">
 		<img src="public/images/pexels-photo-220453.jpeg">
-			<p>{{name}}</p>
-			<p>{{age}} jaar</p>
-		<a class="button" href="changeinfo">Aanpassen</a>
+			<p>{{name}}</br>{{age}} jaar</p>
+		<a class="button" href="overzichtPersoon">Aanpassen</a>
 	</section>
 
-	<section id="movies">
-		<h2>Favorieten films</h2>
+	<section id="games">
+		<h2>Favorieten games</h2>
 
 		<ul>
-			{{#each favoritemovies}}  
+			{{#each favoritegames}}  
 				<li>
-                     <img src="public/images/{{this}}.jpg" alt={{this}}>
+                     <img src="{{this}}" >
                 </li>
                 {{/each}}
         </ul>
-		<a class="button" href="changemovie">Aanpassen</a>
+		<a class="button" href="overzichtGames">Aanpassen</a>
 
 	</section>	

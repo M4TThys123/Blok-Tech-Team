@@ -1,0 +1,40 @@
+	<section>
+		<h1>Games aanpassen</h1>
+		<p>Vewijder of voeg games toe aan favorieten</p>
+	</section>
+
+	<section id="addGames">
+		<h2>Games toevoegen</h2>	
+        <form action="/toevoegenGame" method="POST">
+            <ul>
+			{{#each games}}  
+				<li>
+                     <input type="checkbox" name="gameNaam" value="{{this.posterUrl}}" />
+	                <h3>{{this.name}}</h3>
+					<label for="myCheckbox1"><img src="{{this.posterUrl}}" /></label>
+                </li>
+                {{/each}}
+        	</ul>
+
+              <input class="button" type="submit">    
+        </form>
+    </section>
+
+    <section id="addGames">
+
+		<h2>Games verwijderen</h2>
+
+		<form action="/verwijderGame" method="POST">
+            <ul>
+			{{#each favoritegames}}  
+				<li>
+                     <input type="checkbox" name="gameNaam" value="{{this}}" />
+					<label for="myCheckbox1"><img src="{{this}}" /></label>
+                </li>
+                {{/each}}
+        </ul>
+			<input class="button" type="submit">
+		</form>
+	</section>	
+
+		</main>
