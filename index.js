@@ -6,8 +6,13 @@ var bodyParser = require('body-parser');
 const dotenv = require('dotenv').config();
 const mongoose = require('mongoose');
 mongoose.connect(process.env.DB_URI, {useNewUrlParser: true, useUnifiedTopology: true});
+
+//models
 const voorkeur = require('./models/voorkeur');
 const profiel = require('./models/profiel');
+const people = require('./models/people');
+const gamesmod = require('./models/games');
+const vraagmod = require('./models/vragen');
 
 // Connect database with .env username and password
 var { MongoClient } = require("mongodb");
@@ -37,12 +42,12 @@ async function connectDB() {
     await client.connect();
     console.log("Connected correctly to server");
     db = await client.db(process.env.DB_NAME);
-    col = db.collection("people");
+    col = people;
     person = await col.findOne();
-    colm = db.collection("movies");
+    colm = gamesmod;
     movie = await colm.findOne();
     currrentUser = "603fb9c67d5fab08997fc484";
-    movies = await colm.find({}, { }).toArray();
+    movies = await colm.find({}, { }).lean();
 }
 connectDB()
 .then(() => {
@@ -203,7 +208,7 @@ app.post('/removemovie', async (req, res) => {
 app.get('/q&a', async (req, res) => {
   var vragen = [];
   //takes all the questions from the database and places them into the array vragen
-  vragen = await db.collection('vragen').find({}).toArray();
+  vragen = await vraagmod.find({}).lean();
   //picks 5 random questions from vragen
   const randVraag = [];
   // vraagHolder is a holder for a single question to test if they are already in the new array randVraag
