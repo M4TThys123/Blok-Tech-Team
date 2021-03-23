@@ -35,7 +35,7 @@ db.once('open', async function() {
     colm = gamesmod;
     movie = await colm.findOne();
     currrentUser = "603fb9c67d5fab08997fc484";
-    movies = await colm.find({}, { }).lean();
+    movies = await colm.find({}, { });
 });
 
 //a little array to mimic real accounts
