@@ -316,40 +316,40 @@ section#profiel p {
 align-self: center;
 }
 
-section#movies{
+section#games{
     display: flex;
     flex-direction: column;
         gap: 10px;
 }
 
-section#movies ul {
+section#games ul {
 display: flex;
     gap: 10px;
 }
 
-section#movies li {
+section#games li {
     list-style: none;
        width: 30vw;
 }
-section#movies img {
+section#games img {
  width: 100%;
 }
 
-/*add movie select movie*/
-section#addMovies {
+/*add game select game*/
+section#addGames {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-section#addMovies ul {
+section#addGames ul {
     display: grid;
     list-style: none;
     gap: 10px;
     grid-template-columns: 1fr 1fr 1fr;
 }
 
-section#addMovies ul li {
+section#addGames ul li {
     display: flex;
     flex-direction: column-reverse;
     align-items: center;
@@ -358,7 +358,7 @@ section#addMovies ul li {
     position: relative;
 }
 
-section#addMovies ul li input[type="checkbox"] {
+section#addGames ul li input[type="checkbox"] {
     position: absolute;
     top: 5px;
     left: 5px;
@@ -366,15 +366,15 @@ section#addMovies ul li input[type="checkbox"] {
     height: 20px;
 }
 
-section#addMovies ul li img {
+section#addGames ul li img {
     width: 100%;
 }
 
-section#addMovies label {
+section#addGames label {
     text-align: -webkit-center;
 }
 
-section#addMovies h3 {
+section#addGames h3 {
     font-size: 15px;
     min-height: 40px;
 }

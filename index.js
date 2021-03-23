@@ -17,14 +17,14 @@ var db;
 var col;
 // Person info
 var colm;
-// Movie info
-var movie;
+// Game info
+var game;
 // After login get currrentUser id
 var currrentUser;
-// list of movies
-var movies;
-// get curent user favorite moviename
-var usermovies;
+// list of games
+var games;
+// get curent user favorite gamename
+var usergames;
 
 // function connectDB
 async function connectDB() {
@@ -33,10 +33,10 @@ async function connectDB() {
     console.log("Connected correctly to server");
     db = await client.db(process.env.DB_NAME);
     col = db.collection("people");
-    colm = db.collection("movies");
-    movie = await colm.findOne();
+    colm = db.collection("games");
+    game = await colm.findOne();
     currrentUser = "603fb9c67d5fab08997fc484";
-    movies = await colm.find({}, { }).toArray();
+    games = await colm.find({}, { }).toArray();
 }
 connectDB()
 .then(() => {
@@ -84,15 +84,15 @@ app.get('/', async (req, res) => {
 app.get('/profiel', async (req, res) => {
 
   var person = await col.findOne();
-  var favoritemovies = (person.favoritemovies );
-
+  var favoritegames = (person.favoritegames );
+  
   const profielpagina = 'current';
 
   res.render('profiel', {
       name: person.name,
       age: person.age,
-      movies: movies,
-      favoritemovies: favoritemovies,
+      games: games,
+      favoritegames: favoritegames,
       profielpagina
   })
 
@@ -131,8 +131,8 @@ app.post('/bedankt2', async (req, res) => {
 });
 
 
-// Render template with movies name and image url
-app.get('/changemovie', async (req, res) => {
+// Render template with games name and image url
+app.get('/changegame', async (req, res) => {
 
   // Verbinden met het cms
 const sanityClient = require('@sanity/client')
@@ -148,7 +148,7 @@ var cmsgames;
 // Data ophalen uit het cms
 const query = "*[_type == 'games']{name, 'posterUrl': poster.asset->url}"
 
-// *[_type == 'movie']{title, 'posterUrl': poster.asset->url} 
+// *[_type == 'game']{title, 'posterUrl': poster.asset->url} 
 await client2.fetch(query).then(games => {
   cmsgames = games;
 })
@@ -157,31 +157,31 @@ console.log(cmsgames);
 
 
   var person = await col.findOne();
-  var favoritemovies = (person.favoritemovies );
+  var favoritegames = (person.favoritegames );
 
-  res.render('changemovie', {
-      movies: cmsgames,
-      favoritemovies: favoritemovies
+  res.render('changegame', {
+      games: cmsgames,
+      favoritegames: favoritegames
   })
 });
 
 
-// Add movie to database with form
-app.post('/addmovie', async (req, res) => {
+// Add games to database with form
+app.post('/addgame', async (req, res) => {
 
-var str = req.body.moviename.toString();
+var str = req.body.gamename.toString();
 var arrayofgames = str.split(",");
 
 
 var i;
 for (i = 0; i < arrayofgames.length; i++) {
 
-if(req.body.moviename != null || arrayofgames[i] != "test" ){
+if(req.body.gamename != null || arrayofgames[i] != "test" ){
   await col.updateOne(
  { _id: ObjectId(currrentUser) },
  {
    $addToSet: {
-     favoritemovies: arrayofgames[i]
+     favoritegames: arrayofgames[i]
    }
  }
 )
@@ -190,24 +190,24 @@ if(req.body.moviename != null || arrayofgames[i] != "test" ){
 
 }
 
-  res.redirect('/changemovie');
+  res.redirect('/changegame');
 
 });
 
-// Remove movie from database with form
-app.post('/removemovie', async (req, res) => {
+// Remove game from database with form
+app.post('/removegame', async (req, res) => {
 
-str = req.body.moviename.toString();
+str = req.body.gamename.toString();
 var arrayofgames = str.split(",");
 
 
 var i;
 for (i = 0; i < arrayofgames.length; i++) {
 
-if(req.body.moviename != null || arrayofgames[i] != "test" ){
+if(req.body.gamename != null || arrayofgames[i] != "test" ){
     await col.update(
 { _id: ObjectId(currrentUser) },
-{$pull: { favoritemovies: arrayofgames[i] }}
+{$pull: { favoritegames: arrayofgames[i] }}
 )
 
 }
@@ -215,7 +215,7 @@ if(req.body.moviename != null || arrayofgames[i] != "test" ){
 }
 
 
-     res.redirect('/changemovie');
+     res.redirect('/changegame');
 
 });
 
