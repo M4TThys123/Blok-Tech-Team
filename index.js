@@ -8,11 +8,12 @@ const mongoose = require('mongoose');
 mongoose.connect(process.env.DB_URI, {useNewUrlParser: true, useUnifiedTopology: true});
 
 //models
-const voorkeur = require('./models/voorkeur');
-const profiel = require('./models/profiel');
-const people = require('./models/people');
+const voorkeurmod = require('./models/voorkeur');
+const profielmod = require('./models/profiel');
+const peoplemod = require('./models/people');
 const gamesmod = require('./models/games');
 const vraagmod = require('./models/vragen');
+const matchesmod = require('./models/vragen');
 
 // Connect database with .env username and password
 var { MongoClient } = require("mongodb");
@@ -32,7 +33,7 @@ async function connectDB() {
     await client.connect();
     console.log("Connected correctly to server");
     db = await client.db(process.env.DB_NAME);
-    col = people;
+    col = peoplemod;
     person = await col.findOne();
     colm = gamesmod;
     movie = await colm.findOne();
@@ -80,12 +81,12 @@ app.get('/', async (req, res) => {
   let profielen = {}
 
   // haalt je voorkeur uit de database
-    voorkeur.findOne({id: gebruiker}, async function(err, result) {
+    await voorkeurmod.findOne({id: gebruiker}, async function(err, result) {
     if (err) throw err;
     // filter op geslacht, leeftijd en platform
     const filter = {geslacht: result.geslacht, leeftijdcategory: result.leeftijd, platform: result.platform}; 
     // haalt alle profielen de voldoen aan het filter uit de database op en stopt ze in een array
-    profielen = await profiel.find(filter).lean();
+    profielen = await profielmod.find(filter).lean();
     const match = 'current';
     console.log(profielen)
     res.render('home', {profielen, match})
@@ -96,11 +97,11 @@ app.get('/voorkeur', async (req, res) => {
 // console.log(voorkeur)
     // voorkeur.updateOne( { geslacht: "vrouw", leeftijd: "20-30", platform: "Playstation"} );
 // let voorkeurd = {}
- const voorkeurd = await voorkeur.find({}).lean();
-  console.log(voorkeurd);
+ const voorkeur = await voorkeurmod.find({}).lean();
+  console.log(voorkeur);
   console.log(profiel); 
 
-  res.render('voorkeur', { voorkeurList: voorkeurd });
+  res.render('voorkeur', { voorkeurList: voorkeur });
 });
 
 // When going to profiel.html when node is running your wil be redirected to a dynamic template
@@ -271,7 +272,7 @@ app.post('/q&a', async (req,res) => {
   //pushes chosen answers to the database with the id's from the users
   const questAndAnswer = {"person1": person[0].id, "ansPerson1": req.body.answer, "person2": person[1].id, "ansPerson2": req.body.answer};
   console.log(req.body.answer);
-  await db.collection('matches').insertOne(questAndAnswer)
+  await matchesmod.insertOne(questAndAnswer)
   .then(function() { 
     // redirects the user to a new view
     res.redirect('/chat');
@@ -284,7 +285,7 @@ app.post('/q&a', async (req,res) => {
 
 app.get('/chat', async (req, res) => {
   // takes the last match and sets it into an array
-  var lastItem = await db.collection('matches').find().limit(1).sort({$natural:-1}).toArray();
+  var lastItem = await matchesmod.find().limit(1).sort({$natural:-1}).lean();
 res.render('chat', {lastItem, layout: 'chat_layout.handlebars'});
 });
 
@@ -295,7 +296,7 @@ res.render('chat', {lastItem, layout: 'chat_layout.handlebars'});
 app.post('/vragen', async (req,res) => {
   // takes the info given in the view form and places it into the database
   const Addvragen = {"vraag": req.body.vraag, "ant1": req.body.answer1, "ant2": req.body.answer2};
-  await db.collection('questions').insertOne(Addvragen);
+  await vragenmod.insertOne(Addvragen);
   res.render('add', {Addvragen, layout: 'addlayout.handlebars'})
 });
 
@@ -305,7 +306,7 @@ app.get('/filter', (req, res) => {
 
 app.post('/filter', async (req,res) => {
   // update voorkeur in de database
-  await voorkeur.findOneAndUpdate({ id: gebruiker },{ $set: {"geslacht": req.body.geslacht, "leeftijd": req.body.leeftijd, "platform": req.body.platform  }},{ new: true, upsert: true, returnOriginal: false })
+  await voorkeurmod.findOneAndUpdate({ id: gebruiker },{ $set: {"geslacht": req.body.geslacht, "leeftijd": req.body.leeftijd, "platform": req.body.platform  }},{ new: true, upsert: true, returnOriginal: false })
 
   res.redirect('/')
 });
