@@ -3,13 +3,13 @@
 		<p>Vewijder of voeg games toe aan favorieten</p>
 	</section>
 
-	<section id="addMovies">
+	<section id="addGames">
 		<h2>Games toevoegen</h2>	
-        <form action="/addmovie" method="POST">
+        <form action="/toevoegenGame" method="POST">
             <ul>
-			{{#each movies}}  
+			{{#each games}}  
 				<li>
-                     <input type="checkbox" name="moviename" value="{{this.posterUrl}}" />
+                     <input type="checkbox" name="gameNaam" value="{{this.posterUrl}}" />
 	                <h3>{{this.name}}</h3>
 					<label for="myCheckbox1"><img src="{{this.posterUrl}}" /></label>
                 </li>
@@ -20,15 +20,15 @@
         </form>
     </section>
 
-    <section id="addMovies">
+    <section id="addGames">
 
 		<h2>Games verwijderen</h2>
 
-		<form action="/removemovie" method="POST">
+		<form action="/verwijderGame" method="POST">
             <ul>
-			{{#each favoritemovies}}  
+			{{#each favoritegames}}  
 				<li>
-                     <input type="checkbox" name="moviename" value="{{this}}" />
+                     <input type="checkbox" name="gameNaam" value="{{this}}" />
 					<label for="myCheckbox1"><img src="{{this}}" /></label>
                 </li>
                 {{/each}}
