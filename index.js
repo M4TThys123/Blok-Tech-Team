@@ -13,7 +13,7 @@ const profielmod = require('./models/profiel');
 const peoplemod = require('./models/people');
 const gamesmod = require('./models/games');
 const vraagmod = require('./models/vragen');
-const matchesmod = require('./models/vragen');
+const matchesmod = require('./models/matches');
 
 // Connect database with .env username and password
 var { MongoClient } = require("mongodb");
@@ -59,11 +59,11 @@ mongodb.once('open', function() {
 });
 
 
-// a little array to mimic real accounts
-// const person = [
-//   {"id": 14256, "naam": "Bert"},
-//   {"id": 987643, "naam": "Maaike"}
-// ];
+//a little array to mimic real accounts
+const fakeperson = [
+  {"id": 14256,"naam": "Bert"},
+  {"id": 987643,"naam": "Maaike"}
+];
 
 const geslacht = ["man","vrouw"];
 const leeftijd = ["20-30", "30-40", "40-50", "50+"];
@@ -88,20 +88,8 @@ app.get('/', async (req, res) => {
     // haalt alle profielen de voldoen aan het filter uit de database op en stopt ze in een array
     profielen = await profielmod.find(filter).lean();
     const match = 'current';
-    console.log(profielen)
     res.render('home', {profielen, match})
   });
-});
-
-app.get('/voorkeur', async (req, res) => {
-// console.log(voorkeur)
-    // voorkeur.updateOne( { geslacht: "vrouw", leeftijd: "20-30", platform: "Playstation"} );
-// let voorkeurd = {}
- const voorkeur = await voorkeurmod.find({}).lean();
-  console.log(voorkeur);
-  console.log(profiel); 
-
-  res.render('voorkeur', { voorkeurList: voorkeur });
 });
 
 // When going to profiel.html when node is running your wil be redirected to a dynamic template
@@ -270,9 +258,9 @@ app.get('/q&a', async (req, res) => {
 
 app.post('/q&a', async (req,res) => {
   //pushes chosen answers to the database with the id's from the users
-  const questAndAnswer = {"person1": person[0].id, "ansPerson1": req.body.answer, "person2": person[1].id, "ansPerson2": req.body.answer};
-  console.log(req.body.answer);
-  await matchesmod.insertOne(questAndAnswer)
+  const questAndAnswer = {"person1": fakeperson[0].id, "ansPerson1": req.body.answer, "person2": fakeperson[1].id, "ansPerson2": req.body.answer};
+  console.log(questAndAnswer);
+  await matchesmod.create(questAndAnswer)
   .then(function() { 
     // redirects the user to a new view
     res.redirect('/chat');
@@ -296,7 +284,7 @@ res.render('chat', {lastItem, layout: 'chat_layout.handlebars'});
 app.post('/vragen', async (req,res) => {
   // takes the info given in the view form and places it into the database
   const Addvragen = {"vraag": req.body.vraag, "ant1": req.body.answer1, "ant2": req.body.answer2};
-  await vragenmod.insertOne(Addvragen);
+  await vraagmod.create(Addvragen);
   res.render('add', {Addvragen, layout: 'addlayout.handlebars'})
 });
 
