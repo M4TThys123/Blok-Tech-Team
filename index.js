@@ -15,16 +15,8 @@ var client = new MongoClient(process.env.DB_URI);
 var db;
 // collection people
 var col;
-// Person info
-var colm;
-// Game info
-var game;
 // After login get currrentUser id
 var currrentUser;
-// list of games
-var games;
-// get curent user favorite gamename
-var usergames;
 
 // function connectDB
 async function connectDB() {
@@ -33,10 +25,7 @@ async function connectDB() {
     console.log("Connected correctly to server");
     db = await client.db(process.env.DB_NAME);
     col = db.collection("people");
-    colm = db.collection("games");
-    game = await colm.findOne();
     currrentUser = "603fb9c67d5fab08997fc484";
-    games = await colm.find({}, { }).toArray();
 }
 connectDB()
 .then(() => {
@@ -48,11 +37,6 @@ connectDB()
   console.log(error);
 });
 
-// a little array to mimic real accounts
-// const person = [
-//   {"id": 14256, "naam": "Bert"},
-//   {"id": 987643, "naam": "Maaike"}
-// ];
 const geslacht = ["man","vrouw"];
 const leeftijd = ["20-30", "30-40", "40-50", "50+"];
 const platform = ["PC", "Playstation", "Xbox"];
@@ -176,14 +160,14 @@ app.get('/overzichtGames', async (req, res) => {
 app.post('/toevoegenGame', async (req, res) => {
 
   // games in een array zetten
-  var str = req.body.gamename.toString();
+  var str = req.body.gameNaam.toString();
   var arrayofgames = str.split(",");
 
   // loop door alle games in array en plaats ze elke keer in database.
   var i;
   for (i = 0; i < arrayofgames.length; i++) {
 
-    if(req.body.gamename != null || arrayofgames[i] != "test" ){
+    if(req.body.gameNaam != null || arrayofgames[i] != "test" ){
       await col.updateOne(
       { _id: ObjectId(currrentUser) },
        {
@@ -203,14 +187,14 @@ app.post('/toevoegenGame', async (req, res) => {
 app.post('/verwijderGame', async (req, res) => {
 
   // games in een array zetten
-  str = req.body.gamename.toString();
+  str = req.body.gameNaam.toString();
   var arrayofgames = str.split(",");
 
   // loop door alle games in array en verwijder ze elke keer in database.
   var i;
   for (i = 0; i < arrayofgames.length; i++) {
 
-    if(req.body.gamename != null || arrayofgames[i] != "test" ){
+    if(req.body.gameNaam != null || arrayofgames[i] != "test" ){
       await col.update(
       { _id: ObjectId(currrentUser) },
       {$pull: { favoritegames: arrayofgames[i] }}

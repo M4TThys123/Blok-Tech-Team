@@ -9,7 +9,7 @@
             <ul>
 			{{#each games}}  
 				<li>
-                     <input type="checkbox" name="gamename" value="{{this.posterUrl}}" />
+                     <input type="checkbox" name="gameNaam" value="{{this.posterUrl}}" />
 	                <h3>{{this.name}}</h3>
 					<label for="myCheckbox1"><img src="{{this.posterUrl}}" /></label>
                 </li>
@@ -28,7 +28,7 @@
             <ul>
 			{{#each favoritegames}}  
 				<li>
-                     <input type="checkbox" name="gamename" value="{{this}}" />
+                     <input type="checkbox" name="gameNaam" value="{{this}}" />
 					<label for="myCheckbox1"><img src="{{this}}" /></label>
                 </li>
                 {{/each}}
