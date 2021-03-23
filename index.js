@@ -5,7 +5,6 @@ const port = 3000;
 var bodyParser = require('body-parser');
 const dotenv = require('dotenv').config();
 const mongoose = require('mongoose');
-mongoose.connect(process.env.DB_URI, {useNewUrlParser: true, useUnifiedTopology: true});
 
 //models
 const voorkeurmod = require('./models/voorkeur');
@@ -16,60 +15,38 @@ const vraagmod = require('./models/vragen');
 const matchesmod = require('./models/matches');
 
 // Connect database with .env username and password
-var { MongoClient } = require("mongodb");
+const MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectID;
-var client = new MongoClient(process.env.DB_URI);
 
-// Get info from database
-// var db;
 // collection people
 var col;
 // After login get currrentUser id
 var currrentUser;
 
-// function connectDB
-async function connectDB() {
+// database connectie met mongoose
+mongoose.connect(process.env.DB_URI, {useNewUrlParser: true, useUnifiedTopology: true});
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', async function() {
     // Get data from database
-    await client.connect();
     console.log("Connected correctly to server");
-    db = await client.db(process.env.DB_NAME);
     col = peoplemod;
     person = await col.findOne();
     colm = gamesmod;
     movie = await colm.findOne();
     currrentUser = "603fb9c67d5fab08997fc484";
     movies = await colm.find({}, { }).lean();
-}
-connectDB()
-.then(() => {
-  // if the connection was successfull, show:
-  console.log("we have landed");
-})
-.catch ( error => {
-  // if the connection fails, send error message
-  console.log(error);
 });
-
-//Mongoose DB connectie
-const mongodb = mongoose.connection;
-mongodb.on('error', console.error.bind(console, 'connection error:'));
-mongodb.once('open', function() {
-  // we're connected!
-  console.log('connected');
-});
-
 
 //a little array to mimic real accounts
 const fakeperson = [
   {"id": 14256,"naam": "Bert"},
   {"id": 987643,"naam": "Maaike"}
 ];
-
 const geslacht = ["man","vrouw"];
 const leeftijd = ["20-30", "30-40", "40-50", "50+"];
 const platform = ["PC", "Playstation", "Xbox"];
 const gebruiker = 2;
-
 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(express.static('static'));
