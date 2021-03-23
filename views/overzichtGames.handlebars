@@ -5,7 +5,7 @@
 
 	<section id="addGames">
 		<h2>Games toevoegen</h2>	
-        <form action="/addgame" method="POST">
+        <form action="/toevoegenGame" method="POST">
             <ul>
 			{{#each games}}  
 				<li>
@@ -24,7 +24,7 @@
 
 		<h2>Games verwijderen</h2>
 
-		<form action="/removegame" method="POST">
+		<form action="/verwijderGame" method="POST">
             <ul>
 			{{#each favoritegames}}  
 				<li>

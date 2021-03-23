@@ -80,50 +80,58 @@ app.get('/', async (req, res) => {
   });
 });
 
-// When going to profiel.html when node is running your wil be redirected to a dynamic template
+
+
+// Dit zijn de profiel pagina's
+
+// profiel overzicht pagina
 app.get('/profiel', async (req, res) => {
 
+  // Opvragen informatie persoon
   var person = await col.findOne();
-  var favoritegames = (person.favoritegames );
   
+  // footer weet nu op welke pagina je bent
   const profielpagina = 'current';
 
+  // rendert het template profiel
   res.render('profiel', {
       name: person.name,
       age: person.age,
-      games: games,
-      favoritegames: favoritegames,
+      favoritegames: person.favoritegames,
       profielpagina
   })
 
 });
 
-// Render template changeinfo with database values 
-app.get('/changeinfo', async (req, res) => {
+// Persoonlijke informatie gebruiker
+app.get('/overzichtPersoon', async (req, res) => {
 
+  // Opvragen informatie persoon
   var person = await col.findOne();
 
-  res.render('changeinfo', {
+  // rendert het template overzichtPersoon
+  res.render('overzichtPersoon', {
       name: person.name,
       age: person.age
   })
 });
 
 // Update name and age from database and render template again
-app.post('/bedankt2', async (req, res) => {
+app.post('/overzichtPersoon', async (req, res) => {
   
-
-  await col.updateOne(
- { _id: ObjectId(currrentUser) },
- {
-   $set: {
-     name: req.body.name,
-     age: req.body.age
+  // Updaten van currrentUser
+    await col.updateOne(
+   { _id: ObjectId(currrentUser) },
+   {
+     $set: {
+       name: req.body.name,
+       age: req.body.age
+     }
    }
- }
-)
+  )
 
-  res.render('changeinfo', {
+  // rendert het template overzichtPersoon
+  res.render('overzichtPersoon', {
       name: req.body.name,
       age: req.body.age
   })
@@ -132,92 +140,89 @@ app.post('/bedankt2', async (req, res) => {
 
 
 // Render template with games name and image url
-app.get('/changegame', async (req, res) => {
+app.get('/overzichtGames', async (req, res) => {
 
   // Verbinden met het cms
-const sanityClient = require('@sanity/client')
-const client2 = sanityClient({
-  projectId: '5wst6igf',
-  dataset: 'production',
-  token: '', // or leave blank to be anonymous user
-  useCdn: true // `false` if you want to ensure fresh data
-})
+  const sanityClient = require('@sanity/client')
+  const client2 = sanityClient({
+    projectId: '5wst6igf',
+    dataset: 'production',
+    token: '', // or leave blank to be anonymous user
+    useCdn: true // `false` if you want to ensure fresh data
+  })
 
-var cmsgames;
+  var cmsgames;
 
-// Data ophalen uit het cms
-const query = "*[_type == 'games']{name, 'posterUrl': poster.asset->url}"
+  // Data ophalen uit het cms met query
+  const query = "*[_type == 'games']{name, 'posterUrl': poster.asset->url}"
 
-// *[_type == 'game']{title, 'posterUrl': poster.asset->url} 
-await client2.fetch(query).then(games => {
-  cmsgames = games;
-})
+  // verander variable naar die van de database
+  await client2.fetch(query).then(games => {
+    cmsgames = games;
+  })
 
-console.log(cmsgames);
-
-
+  // Opvragen informatie persoon
   var person = await col.findOne();
-  var favoritegames = (person.favoritegames );
 
-  res.render('changegame', {
+  // rendert het template overzichtPersoon
+  res.render('overzichtGames', {
       games: cmsgames,
-      favoritegames: favoritegames
+      favoritegames: person.favoritegames
   })
 });
 
 
-// Add games to database with form
-app.post('/addgame', async (req, res) => {
+// Toevoegen van game in persoon
+app.post('/toevoegenGame', async (req, res) => {
 
-var str = req.body.gamename.toString();
-var arrayofgames = str.split(",");
+  // games in een array zetten
+  var str = req.body.gamename.toString();
+  var arrayofgames = str.split(",");
 
+  // loop door alle games in array en plaats ze elke keer in database.
+  var i;
+  for (i = 0; i < arrayofgames.length; i++) {
 
-var i;
-for (i = 0; i < arrayofgames.length; i++) {
+    if(req.body.gamename != null || arrayofgames[i] != "test" ){
+      await col.updateOne(
+      { _id: ObjectId(currrentUser) },
+       {
+         $addToSet: {
+           favoritegames: arrayofgames[i]
+         }
+      })
+    }
+  }
 
-if(req.body.gamename != null || arrayofgames[i] != "test" ){
-  await col.updateOne(
- { _id: ObjectId(currrentUser) },
- {
-   $addToSet: {
-     favoritegames: arrayofgames[i]
-   }
- }
-)
-
-}
-
-}
-
-  res.redirect('/changegame');
+  // Stuur naar overzichtGames
+  res.redirect('/overzichtGames');
 
 });
 
 // Remove game from database with form
-app.post('/removegame', async (req, res) => {
+app.post('/verwijderGame', async (req, res) => {
 
-str = req.body.gamename.toString();
-var arrayofgames = str.split(",");
+  // games in een array zetten
+  str = req.body.gamename.toString();
+  var arrayofgames = str.split(",");
 
+  // loop door alle games in array en verwijder ze elke keer in database.
+  var i;
+  for (i = 0; i < arrayofgames.length; i++) {
 
-var i;
-for (i = 0; i < arrayofgames.length; i++) {
+    if(req.body.gamename != null || arrayofgames[i] != "test" ){
+      await col.update(
+      { _id: ObjectId(currrentUser) },
+      {$pull: { favoritegames: arrayofgames[i] }}
+      )
+    }
+  }
 
-if(req.body.gamename != null || arrayofgames[i] != "test" ){
-    await col.update(
-{ _id: ObjectId(currrentUser) },
-{$pull: { favoritegames: arrayofgames[i] }}
-)
-
-}
-
-}
-
-
-     res.redirect('/changegame');
+  // Stuur naar overzichtGames
+  res.redirect('/overzichtGames');
 
 });
+// Einden van profiel pagina's
 
 
 app.get('/q&a', async (req, res) => {
