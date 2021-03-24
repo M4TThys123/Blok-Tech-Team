@@ -10,7 +10,6 @@ const mongoose = require('mongoose');
 const voorkeurmod = require('./models/voorkeur');
 const profielmod = require('./models/profiel');
 const peoplemod = require('./models/people');
-const gamesmod = require('./models/games');
 const vraagmod = require('./models/vragen');
 const matchesmod = require('./models/matches');
 
@@ -32,13 +31,10 @@ db.once('open', async function() {
     console.log("Connected correctly to server");
     col = peoplemod;
     person = await col.findOne();
-    colm = gamesmod;
-    movie = await colm.findOne();
     currrentUser = "603fb9c67d5fab08997fc484";
-    movies = await colm.find({}, { });
 });
 
-//a little array to mimic real accounts
+// array met accounts
 const fakeperson = [
   {"id": 14256,"naam": "Bert"},
   {"id": 987643,"naam": "Maaike"}
