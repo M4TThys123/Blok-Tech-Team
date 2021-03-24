@@ -20,7 +20,6 @@ body {
     height: 100%;
 }
 header {
-    background-color: #257EBB;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -29,6 +28,8 @@ header {
 
 header h1 {
     width: 50%;
+    color: #257EBB;
+    padding: 0.5em 0;
 }
 
 main {
@@ -42,10 +43,11 @@ main {
 a.button, button, .button{
     background-color: #287CB9;
     color: white;
-    padding: 7px;
-    border-radius: 20px;
     width: max-content;
     border: none;
+    padding: 0.5em 1em;
+    border-radius: 10px;
+    font-size: 1em;
 }
 
 form {
@@ -385,19 +387,12 @@ section#addGames h3 {
 }
 
 #profileimage {
-    width: 100%
+    width: 100%;
+    border-radius: 50%;
 }
 
 .match a img{
     max-height: 2em;
-}
-
-button{
-    background-color:#0E4C76;
-    color: #B8C5CE;
-    padding: 0.5em 2em;
-    border-radius: 10px;
-    font-size: 1em;
 }
 
 fieldset {
@@ -407,15 +402,16 @@ fieldset {
 .match article{
     margin: 0.5em;
     padding: 1em;
-    background-color: #B8C5CE;
 }
 
 .filter {
-    background-color: #B8C5CE;
-    margin: 2em 0;
     padding: 1em;
     display: flex;
     flex-direction: column;
+}
+
+.match a img{
+    max-height: 2em;
 }
 
 .match {
@@ -436,7 +432,6 @@ fieldset {
     max-height: 5em;
     margin: 1em;
     width: 5em;
-    background-color: #0E4C76;
 } 
 
 #ice_button {
