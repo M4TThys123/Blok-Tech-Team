@@ -59,6 +59,7 @@ app.get('/', async (req, res) => {
     // filter op geslacht, leeftijd en platform
     const filter = {geslacht: result.geslacht, leeftijdcategory: result.leeftijd, platform: result.platform}; 
     // haalt alle profielen de voldoen aan het filter uit de database op en stopt ze in een array
+    // https://stackoverflow.com/a/59759088
     profielen = await profielmod.find(filter).lean();
     const match = 'current';
     res.render('home', {profielen, match})
@@ -267,8 +268,8 @@ app.get('/filter', (req, res) => {
 
 app.post('/filter', async (req,res) => {
   // update voorkeur in de database
+  // https://poopcode.com/mongoerror-the-update-operation-document-must-contain-atomic-operators-how-to-fix/
   await voorkeurmod.findOneAndUpdate({ id: gebruiker },{ $set: {"geslacht": req.body.geslacht, "leeftijd": req.body.leeftijd, "platform": req.body.platform  }},{ new: true, upsert: true, returnOriginal: false })
-
   res.redirect('/')
 });
 
