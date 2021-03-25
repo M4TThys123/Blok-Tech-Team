@@ -6,20 +6,20 @@ var bodyParser = require('body-parser');
 const dotenv = require('dotenv').config();
 const mongoose = require('mongoose');
 
-//models
+// models
 const voorkeurmod = require('./models/voorkeur');
 const profielmod = require('./models/profiel');
 const peoplemod = require('./models/people');
 const vraagmod = require('./models/vragen');
 const matchesmod = require('./models/matches');
 
-// Connect database with .env username and password
+// Mongodb gebruiken
 const MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectID;
 
 // collection people
 var col;
-// After login get currrentUser id
+// after login get currrentUser id
 var currrentUser;
 
 // database connectie met mongoose
@@ -27,7 +27,6 @@ mongoose.connect(process.env.DB_URI, {useNewUrlParser: true, useUnifiedTopology:
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', async function() {
-    // Get data from database
     console.log("Connected correctly to server");
     col = peoplemod;
     person = await col.findOne();
@@ -39,6 +38,7 @@ const fakeperson = [
   {"id": 14256,"naam": "Bert"},
   {"id": 987643,"naam": "Maaike"}
 ];
+
 const geslacht = ["man","vrouw"];
 const leeftijd = ["20-30", "30-40", "40-50", "50+"];
 const platform = ["PC", "Playstation", "Xbox"];
