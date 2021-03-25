@@ -1,10 +1,12 @@
 const express = require('express');
+const app = require('express')();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+
 const exphbs = require('express-handlebars');
-const app = express();
 const port = 3000;
 var bodyParser = require('body-parser');
 const dotenv = require('dotenv').config();
-// const { MongoClient } = require('mongodb');
 
 // Connect database with .env username and password
 var { MongoClient } = require("mongodb");
@@ -49,10 +51,6 @@ connectDB()
 });
 
 // a little array to mimic real accounts
-// const person = [
-//   {"id": 14256, "naam": "Bert"},
-//   {"id": 987643, "naam": "Maaike"}
-// ];
 const geslacht = ["man","vrouw"];
 const leeftijd = ["20-30", "30-40", "40-50", "50+"];
 const platform = ["PC", "Playstation", "Xbox"];
@@ -278,6 +276,22 @@ app.post('/filter', async (req,res) => {
   // update voorkeur in de database
   await db.collection("voorkeur").findOneAndUpdate({ id: gebruiker },{ $set: {"geslacht": req.body.geslacht, "leeftijd": req.body.leeftijd, "platform": req.body.platform  }},{ new: true, upsert: true, returnOriginal: false })
   res.redirect('/')
+});
+app.get('/test', (req, res) => {
+  res.sendFile(__dirname + '/index.html');
+});
+
+io.on('connection', (socket) => {
+  console.log('made the socket connection');
+
+  // Handle chat event
+  // socket.on('chat', function(data){
+  //     io.sockets.emit('chat', data);
+  // });
+
+  // socket.on('typing', function(data){
+  //   socket.broadcast.emit('typing', data)
+  // });
 });
 
 app.use(function (req, res) {

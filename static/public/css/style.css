@@ -62,22 +62,22 @@ nav{
 }
 
 nav ul{
-        display: flex;
+    display: flex;
     justify-content: space-between;
 }
 
 nav ul li{
-display: flex;
+    display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 nav ul li img {
-   height: 2em;
+    height: 2em;
 }
 
 nav ul li:hover img, .current {
-filter: invert(43%) sepia(25%) saturate(1279%) hue-rotate(161deg) brightness(97%) contrast(100%);
+    filter: invert(43%) sepia(25%) saturate(1279%) hue-rotate(161deg) brightness(97%) contrast(100%);
 }
 
 #main_nav {
@@ -262,6 +262,8 @@ main #chat #msg2::before { /*https://codingislove.com/css-speech-bubbles/*/
     background-size: 30px;
     width: 30px;
     height: 30px;
+    background-color: transparent;
+    padding: 0;
 }
 #add_header, #add_footer {
     height: 10%;
@@ -447,4 +449,15 @@ fieldset {
     background-color: #257EBB;
     border-radius: 1.5em;
     color: white;
+}
+
+#messages {
+    list-style-type: none;
+}
+
+#messages > li {
+    padding: 0.5rem 1rem;
+}
+#messages > li:nth-child(odd) {
+    background: #efefef;
 }
