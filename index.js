@@ -1,12 +1,14 @@
 const express = require('express');
 const app = require('express')();
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
+var socket = require('socket.io');
+var server = require('http').createServer(app);
+
 
 const exphbs = require('express-handlebars');
 const port = 3000;
 var bodyParser = require('body-parser');
 const dotenv = require('dotenv').config();
+server.listen(port);
 
 // Connect database with .env username and password
 var { MongoClient } = require("mongodb");
@@ -50,6 +52,10 @@ connectDB()
   console.log(error);
 });
 
+const fakeperson = [
+  {"id": 14256,"naam": "Bert"},
+  {"id": 987643,"naam": "Maaike"}
+];
 // a little array to mimic real accounts
 const geslacht = ["man","vrouw"];
 const leeftijd = ["20-30", "30-40", "40-50", "50+"];
@@ -62,6 +68,20 @@ app.use(express.static('static'));
 
 app.engine('handlebars', exphbs());
 app.set("view engine", 'handlebars');
+
+//socket setup
+
+var io = socket(server);
+io.on('connection', function(socket) {
+  console.log('made the socket connection');
+
+  //luistert naar de client side of daar een chat bericht van verstuurd wordt
+  socket.on('chat', function(data){
+    //stuurt het bericht door naar alle clients die gekoppeld zijn aan dezelfde room
+    io.sockets.emit('chat', data);
+  });
+});
+
 
 app.get('/', async (req, res) => {
   let profielen = {}
@@ -211,10 +231,7 @@ if(req.body.moviename != null || arrayofgames[i] != "test" ){
 }
 
 }
-
-
      res.redirect('/changemovie');
-
 });
 
 
@@ -238,7 +255,7 @@ app.get('/q&a', async (req, res) => {
 
 app.post('/q&a', async (req,res) => {
   //pushes chosen answers to the database with the id's from the users
-  const questAndAnswer = {"person1": person[0].id, "ansPerson1": req.body.answer, "person2": person[1].id, "ansPerson2": req.body.answer};
+  const questAndAnswer = {"person1": fakeperson[0].id, "ansPerson1": req.body.answer, "person2": fakeperson[1].id, "ansPerson2": req.body.answer};
   console.log(req.body.answer);
   await db.collection('matches').insertOne(questAndAnswer)
   .then(function() { 
@@ -254,7 +271,7 @@ app.post('/q&a', async (req,res) => {
 app.get('/chat', async (req, res) => {
   // takes the last match and sets it into an array
   var lastItem = await db.collection('matches').find().limit(1).sort({$natural:-1}).toArray();
-res.render('chat', {lastItem, layout: 'chat_layout.handlebars'});
+res.render('chat', {lastItem, layout: 'chat_layout.handlebars', fakeperson});
 });
 
   app.get('/vragen', (req, res) => {
@@ -276,22 +293,6 @@ app.post('/filter', async (req,res) => {
   // update voorkeur in de database
   await db.collection("voorkeur").findOneAndUpdate({ id: gebruiker },{ $set: {"geslacht": req.body.geslacht, "leeftijd": req.body.leeftijd, "platform": req.body.platform  }},{ new: true, upsert: true, returnOriginal: false })
   res.redirect('/')
-});
-app.get('/test', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
-});
-
-io.on('connection', (socket) => {
-  console.log('made the socket connection');
-
-  // Handle chat event
-  // socket.on('chat', function(data){
-  //     io.sockets.emit('chat', data);
-  // });
-
-  // socket.on('typing', function(data){
-  //   socket.broadcast.emit('typing', data)
-  // });
 });
 
 app.use(function (req, res) {

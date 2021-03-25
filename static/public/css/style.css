@@ -240,13 +240,13 @@ main #chat #msg2::before { /*https://codingislove.com/css-speech-bubbles/*/
     width: 3em;
 }
 
-#chat_footer form {
+#chat_footer section {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-#chat_footer form input:first-of-type {
+#chat_footer section input:first-of-type {
     border: 1px solid black;
     width: 20em;
     margin-right: 1em;
@@ -255,7 +255,7 @@ main #chat #msg2::before { /*https://codingislove.com/css-speech-bubbles/*/
     border-radius: 1em;
 }
 
-#chat_footer form #submitText {
+#chat_footer section #submitText {
     border: none;
     background-image: url(../images/send.png);
     background-repeat: no-repeat;
@@ -451,13 +451,20 @@ fieldset {
     color: white;
 }
 
-#messages {
-    list-style-type: none;
+.nieuwBericht {
+    background-color: #257EBB;
+    margin-bottom: 1em;
 }
 
-#messages > li {
-    padding: 0.5rem 1rem;
-}
-#messages > li:nth-child(odd) {
-    background: #efefef;
+.nieuwBericht::before { /*https://codingislove.com/css-speech-bubbles/*/
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border-left: 10px solid #257EBB;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #257EBB;
+    border-bottom: 10px solid transparent;
+    bottom: -12px;
+    left: 8px;
 }
