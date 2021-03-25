@@ -1,17 +1,16 @@
-<a href="filter"><img src="/public/images/filter.svg"> Filter</a>
 <section class="match">
+<a class="button" href="filter">Filter</a>
     {{#each profielen}}
     <article>
         <img id="profileimage" src="{{this.afbeelding}}">
         <h2>{{this.naam}}</h2>
         <h4>{{this.leeftijd}}</h4>
         <p>{{this.beschrijving}}</p>
-        <section id="movies">
-            {{!-- <h2>Favorieten games</h2> --}}
+        <section id="games">
             <ul>
-                {{#each favoritemovies}}
+                {{#each favoritegames}}
                 <li>
-                    <img src="/public/images/{{this}}.jpg" alt={{this}}>
+                    <img src="{{this}}">
                 </li>
                 {{/each}}
             </ul>

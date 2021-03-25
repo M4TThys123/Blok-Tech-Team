@@ -34,6 +34,7 @@
     "handlebars": "^4.7.6",
     "js-beautify": "^1.13.5",
     "mongodb": "^3.6.4",
+    "mongoose": "^5.12.1",
     "npm": "^7.6.0",
     "socket.io": "^4.0.0"
   },
