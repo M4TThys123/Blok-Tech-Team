@@ -1,0 +1,19 @@
+	<section>
+		<h1>Profiel aanpassen</h1>
+		<p>Verander je profiel.</p>
+	</section>
+
+
+	<section id="profiel">
+		<img src="public/images/pexels-photo-220453.jpeg">
+			<p>{{name}}</p>
+			<p>{{age}} jaar</p>
+	</section>
+	
+	<form action="/overzichtPersoon" method="post">
+		<label >Name:</label>
+		<input type="text" name="name" value="{{name}}">
+		<label >Age:</label>
+		<input type="text" name="age" value="{{age}}">
+		<input class="button" type="submit" value="Submit">
+	</form> 

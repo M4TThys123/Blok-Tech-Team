@@ -20,7 +20,6 @@ body {
     height: 100%;
 }
 header {
-    background-color: #257EBB;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -29,6 +28,8 @@ header {
 
 header h1 {
     width: 50%;
+    color: #257EBB;
+    padding: 0.5em 0;
 }
 
 main {
@@ -39,12 +40,20 @@ main {
     padding-bottom: 100px;
 }
 
-a.button {
+a.button, button, .button{
     background-color: #287CB9;
     color: white;
-    padding: 7px;
-    border-radius: 20px;
     width: max-content;
+    border: none;
+    padding: 0.5em 1em;
+    border-radius: 10px;
+    font-size: 1em;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 /*navigatie fixed*/
@@ -293,52 +302,137 @@ main #chat #msg2::before { /*https://codingislove.com/css-speech-bubbles/*/
 
 /*Profiel pagina*/
 section#profiel {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 10px;
+}
+
+section#profiel img {
+    border-radius: 50%;
+    width: 100%;
+}
+
+
+section#profiel p {
+    grid-column: 2;
+align-self: center;
+}
+
+section#games{
     display: flex;
     flex-direction: column;
         gap: 10px;
 }
 
-section#movies{
-    display: flex;
-    flex-direction: column;
-        gap: 10px;
-}
-
-section#movies ul {
+section#games ul {
 display: flex;
     gap: 10px;
 }
 
-section#movies li {
+section#games li {
     list-style: none;
        width: 30vw;
 }
-section#movies img {
+section#games img {
  width: 100%;
 }
 
-/*add movie select movie*/
-section#addMovies ul {
+/*add game select game*/
+section#addGames {
     display: flex;
-    list-style: none;
+    flex-direction: column;
+    gap: 20px;
 }
 
-section#addMovies ul li {
+section#addGames ul {
+    display: grid;
+    list-style: none;
+    gap: 10px;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+section#addGames ul li {
     display: flex;
     flex-direction: column-reverse;
     align-items: center;
+        text-align: center;
+    gap: 8px;
+    position: relative;
 }
 
-section#addMovies ul li img {
-    width: 33%;
+section#addGames ul li input[type="checkbox"] {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 20px;
+    height: 20px;
 }
 
+section#addGames ul li img {
+    width: 100%;
+}
 
+section#addGames label {
+    text-align: -webkit-center;
+}
+
+section#addGames h3 {
+    font-size: 15px;
+    min-height: 40px;
+}
 
 #add_footer {
     display: flex;
     justify-content: center;
 }
+
+#profileimage {
+    width: 100%;
+    border-radius: 50%;
+}
+
+.match a img{
+    max-height: 2em;
+}
+
+fieldset {
+    border: 0;
+}
+
+.match article{
+    margin: 0.5em;
+    padding: 1em;
+}
+
+.filter {
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+}
+
+.match a img{
+    max-height: 2em;
+}
+
+.match {
+    padding: 0 0 5em 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.match div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.match div img{
+    border-radius: 200px;
+    padding: 0.5em;
+    max-height: 5em;
+    margin: 1em;
+    width: 5em;
+} 
 
 #ice_button {
     position: absolute;
@@ -354,7 +448,7 @@ section#addMovies ul li img {
     background-color: #257EBB;
 }
 
-#chat_header {
+#chat_header h1{
     color: black;
     text-align: center;
 }
