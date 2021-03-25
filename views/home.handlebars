@@ -1,5 +1,5 @@
-<a href="filter"><img src="/public/images/filter.svg"> Filter</a>
 <section class="match">
+<a class="button" href="filter">Filter</a>
     {{#each profielen}}
     <article>
         <img id="profileimage" src="{{this.afbeelding}}">
@@ -7,7 +7,6 @@
         <h4>{{this.leeftijd}}</h4>
         <p>{{this.beschrijving}}</p>
         <section id="games">
-            {{!-- <h2>Favorieten games</h2> --}}
             <ul>
                 {{#each favoritegames}}
                 <li>
