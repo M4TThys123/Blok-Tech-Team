@@ -27,6 +27,8 @@ async function connectDB() {
     col = db.collection("people");
     currrentUser = "603fb9c67d5fab08997fc484";
 }
+
+
 connectDB()
 .then(() => {
   // if the connection was successfull, show:
@@ -66,22 +68,53 @@ app.get('/', async (req, res) => {
 
 
 
-// Dit zijn de profiel pagina's
+//////////// Dit zijn de profiel pagina's gemaakt door tim //////////////
+
+// functie die de favoritegames update
+async function updateGames(req, res, change){
+    // games in een array zetten
+  const str = req.body.gameNaam.toString();
+  const arrayofgames = str.split(",");
+
+  // loop door alle games in array en plaats ze elke keer in database.
+  for (i = 0; i < arrayofgames.length; i++) {
+
+    if(req.body.gameNaam != null || arrayofgames[i] != "test" ){
+
+      if(change == "add"){
+        await col.updateOne(
+          { _id: ObjectId(currrentUser) },
+          {$addToSet: {favoritegames: arrayofgames[i]}}
+        )
+      }
+
+      if(change == "remove"){
+        await col.updateOne(
+          { _id: ObjectId(currrentUser) },
+          {$pull:{favoritegames: arrayofgames[i]}}
+        )
+      }
+    }
+  }
+
+  // Stuur naar overzichtGames
+  res.redirect('/overzichtGames');
+}
 
 // profiel overzicht pagina
 app.get('/profiel', async (req, res) => {
 
   // Opvragen informatie persoon
-  var person = await col.findOne();
+  const persoon = await col.findOne();
   
   // footer weet nu op welke pagina je bent
   const profielpagina = 'current';
 
   // rendert het template profiel
   res.render('profiel', {
-      name: person.name,
-      age: person.age,
-      favoritegames: person.favoritegames,
+      name: persoon.name,
+      age: persoon.age,
+      favoritegames: persoon.favoritegames,
       profielpagina
   })
 
@@ -91,12 +124,12 @@ app.get('/profiel', async (req, res) => {
 app.get('/overzichtPersoon', async (req, res) => {
 
   // Opvragen informatie persoon
-  var person = await col.findOne();
+  const persoon = await col.findOne();
 
   // rendert het template overzichtPersoon
   res.render('overzichtPersoon', {
-      name: person.name,
-      age: person.age
+      name: persoon.name,
+      age: persoon.age
   })
 });
 
@@ -104,21 +137,12 @@ app.get('/overzichtPersoon', async (req, res) => {
 app.post('/overzichtPersoon', async (req, res) => {
   
   // Updaten van currrentUser
-    await col.updateOne(
-   { _id: ObjectId(currrentUser) },
-   {
-     $set: {
-       name: req.body.name,
-       age: req.body.age
-     }
-   }
-  )
-
-  // rendert het template overzichtPersoon
-  res.render('overzichtPersoon', {
-      name: req.body.name,
-      age: req.body.age
-  })
+  await col.updateOne(
+      { _id: ObjectId(currrentUser) },
+      {$set: { name: req.body.name, age: req.body.age}}
+    )
+  // Stuur naar overzichtPersoon
+  res.redirect('/overzichtPersoon');
 
 });
 
@@ -146,67 +170,32 @@ app.get('/overzichtGames', async (req, res) => {
   })
 
   // Opvragen informatie persoon
-  var person = await col.findOne();
+  const persoon = await col.findOne();
 
   // rendert het template overzichtPersoon
   res.render('overzichtGames', {
       games: cmsgames,
-      favoritegames: person.favoritegames
+      favoritegames: persoon.favoritegames
   })
+
 });
 
 
 // Toevoegen van game in persoon
 app.post('/toevoegenGame', async (req, res) => {
 
-  // games in een array zetten
-  var str = req.body.gameNaam.toString();
-  var arrayofgames = str.split(",");
-
-  // loop door alle games in array en plaats ze elke keer in database.
-  var i;
-  for (i = 0; i < arrayofgames.length; i++) {
-
-    if(req.body.gameNaam != null || arrayofgames[i] != "test" ){
-      await col.updateOne(
-      { _id: ObjectId(currrentUser) },
-       {
-         $addToSet: {
-           favoritegames: arrayofgames[i]
-         }
-      })
-    }
-  }
-
-  // Stuur naar overzichtGames
-  res.redirect('/overzichtGames');
+  updateGames(req, res, "add");
 
 });
 
 // Remove game from database with form
 app.post('/verwijderGame', async (req, res) => {
 
-  // games in een array zetten
-  str = req.body.gameNaam.toString();
-  var arrayofgames = str.split(",");
-
-  // loop door alle games in array en verwijder ze elke keer in database.
-  var i;
-  for (i = 0; i < arrayofgames.length; i++) {
-
-    if(req.body.gameNaam != null || arrayofgames[i] != "test" ){
-      await col.updateOne(
-      { _id: ObjectId(currrentUser) },
-      {$pull: { favoritegames: arrayofgames[i] }}
-      )
-    }
-  }
-
-  // Stuur naar overzichtGames
-  res.redirect('/overzichtGames');
+  updateGames(req, res, "remove");
 
 });
-// Einden van profiel pagina's
+
+/////////// Einden van profiel pagina's /////////
 
 
 app.get('/q&a', async (req, res) => {
