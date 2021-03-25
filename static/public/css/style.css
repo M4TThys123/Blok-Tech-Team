@@ -349,3 +349,12 @@ section#addMovies ul li img {
     border-radius: 1.5em;
     color: white;
 }
+
+#chat_header {
+    background-color: #257EBB;
+}
+
+#chat_header {
+    color: black;
+    text-align: center;
+}
