@@ -239,7 +239,9 @@ main #chat #msg2::before { /*https://codingislove.com/css-speech-bubbles/*/
 }
 
 #chat_footer a img {
-    width: 3em;
+    width: 2.5em;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
 }
 
 #chat_footer form {
@@ -444,11 +446,11 @@ fieldset {
     color: white;
 }
 
-#chat_header {
+#chat_header, #add_header {
     background-color: #257EBB;
 }
 
-#chat_header h1{
+#chat_header h1, #add_header h1 {
     color: black;
     text-align: center;
 }
