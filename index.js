@@ -4,46 +4,45 @@ const app = express();
 const port = 3000;
 var bodyParser = require('body-parser');
 const dotenv = require('dotenv').config();
-// const { MongoClient } = require('mongodb');
+const mongoose = require('mongoose');
+
+//models
+const voorkeurmod = require('./models/voorkeur');
+const profielmod = require('./models/profiel');
+const peoplemod = require('./models/people');
+const vraagmod = require('./models/vragen');
+const matchesmod = require('./models/matches');
 
 // Connect database with .env username and password
-var { MongoClient } = require("mongodb");
+const MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectID;
-var client = new MongoClient(process.env.DB_URI);
 
-// Get info from database
-var db;
 // collection people
 var col;
 // After login get currrentUser id
 var currrentUser;
 
-// function connectDB
-async function connectDB() {
+// database connectie met mongoose
+mongoose.connect(process.env.DB_URI, {useNewUrlParser: true, useUnifiedTopology: true});
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', async function() {
     // Get data from database
-    await client.connect();
     console.log("Connected correctly to server");
-    db = await client.db(process.env.DB_NAME);
-    col = db.collection("people");
+    col = peoplemod;
+    person = await col.findOne();
     currrentUser = "603fb9c67d5fab08997fc484";
-}
-
-
-connectDB()
-.then(() => {
-  // if the connection was successfull, show:
-  console.log("we have landed");
-})
-.catch ( error => {
-  // if the connection fails, send error message
-  console.log(error);
 });
 
+// array met accounts
+const fakeperson = [
+  {"id": 14256,"naam": "Bert"},
+  {"id": 987643,"naam": "Maaike"}
+];
 const geslacht = ["man","vrouw"];
 const leeftijd = ["20-30", "30-40", "40-50", "50+"];
 const platform = ["PC", "Playstation", "Xbox"];
 const gebruiker = 2;
-
 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(express.static('static'));
@@ -55,18 +54,18 @@ app.get('/', async (req, res) => {
   let profielen = {}
 
   // haalt je voorkeur uit de database
-  db.collection('voorkeur').findOne({id: gebruiker}, async function(err, result) {
+    await voorkeurmod.findOne({id: gebruiker}, async function(err, result) {
     if (err) throw err;
     // filter op geslacht, leeftijd en platform
     const filter = {geslacht: result.geslacht, leeftijdcategory: result.leeftijd, platform: result.platform}; 
     // haalt alle profielen de voldoen aan het filter uit de database op en stopt ze in een array
-    profielen = await db.collection('profielen').find(filter).toArray();
+    profielen = await profielmod.find(filter).lean();
     const match = 'current';
     res.render('home', {profielen, match})
   });
 });
 
-
+// When going to profiel.html when node is running your wil be redirected to a dynamic template
 
 //////////// Dit zijn de profiel pagina's gemaakt door tim //////////////
 
@@ -102,6 +101,7 @@ async function updateGames(req, res, change){
 }
 
 // profiel overzicht pagina
+
 app.get('/profiel', async (req, res) => {
 
   // Opvragen informatie persoon
@@ -201,7 +201,7 @@ app.post('/verwijderGame', async (req, res) => {
 app.get('/q&a', async (req, res) => {
   var vragen = [];
   //takes all the questions from the database and places them into the array vragen
-  vragen = await db.collection('vragen').find({}).toArray();
+  vragen = await vraagmod.find({}).lean();
   //picks 5 random questions from vragen
   const randVraag = [];
   // vraagHolder is a holder for a single question to test if they are already in the new array randVraag
@@ -218,9 +218,9 @@ app.get('/q&a', async (req, res) => {
 
 app.post('/q&a', async (req,res) => {
   //pushes chosen answers to the database with the id's from the users
-  const questAndAnswer = {"person1": person[0].id, "ansPerson1": req.body.answer, "person2": person[1].id, "ansPerson2": req.body.answer};
-  console.log(req.body.answer);
-  await db.collection('matches').insertOne(questAndAnswer)
+  const questAndAnswer = {"person1": fakeperson[0].id, "ansPerson1": req.body.answer, "person2": fakeperson[1].id, "ansPerson2": req.body.answer};
+  console.log(questAndAnswer);
+  await matchesmod.create(questAndAnswer)
   .then(function() { 
     // redirects the user to a new view
     res.redirect('/chat');
@@ -233,7 +233,7 @@ app.post('/q&a', async (req,res) => {
 
 app.get('/chat', async (req, res) => {
   // takes the last match and sets it into an array
-  var lastItem = await db.collection('matches').find().limit(1).sort({$natural:-1}).toArray();
+  var lastItem = await matchesmod.find().limit(1).sort({$natural:-1}).lean();
 res.render('chat', {lastItem, layout: 'chat_layout.handlebars'});
 });
 
@@ -244,7 +244,7 @@ res.render('chat', {lastItem, layout: 'chat_layout.handlebars'});
 app.post('/vragen', async (req,res) => {
   // takes the info given in the view form and places it into the database
   const Addvragen = {"vraag": req.body.vraag, "ant1": req.body.answer1, "ant2": req.body.answer2};
-  await db.collection('questions').insertOne(Addvragen);
+  await vraagmod.create(Addvragen);
   res.render('add', {Addvragen, layout: 'addlayout.handlebars'})
 });
 
@@ -254,7 +254,8 @@ app.get('/filter', (req, res) => {
 
 app.post('/filter', async (req,res) => {
   // update voorkeur in de database
-  await db.collection("voorkeur").findOneAndUpdate({ id: gebruiker },{ $set: {"geslacht": req.body.geslacht, "leeftijd": req.body.leeftijd, "platform": req.body.platform  }},{ new: true, upsert: true, returnOriginal: false })
+  await voorkeurmod.findOneAndUpdate({ id: gebruiker },{ $set: {"geslacht": req.body.geslacht, "leeftijd": req.body.leeftijd, "platform": req.body.platform  }},{ new: true, upsert: true, returnOriginal: false })
+
   res.redirect('/')
 });
 
