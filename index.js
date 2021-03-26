@@ -1,33 +1,37 @@
 const express = require('express');
+const app = require('express')();
+var socket = require('socket.io');
+var server = require('http').createServer(app);
+
+
 const exphbs = require('express-handlebars');
-const app = express();
 const port = 3000;
 var bodyParser = require('body-parser');
 const dotenv = require('dotenv').config();
+server.listen(port);
 const mongoose = require('mongoose');
 
-//models
+// models
 const voorkeurmod = require('./models/voorkeur');
 const profielmod = require('./models/profiel');
 const peoplemod = require('./models/people');
 const vraagmod = require('./models/vragen');
 const matchesmod = require('./models/matches');
 
-// Connect database with .env username and password
+// Mongodb gebruiken
 const MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectID;
 
 // collection people
 var col;
-// After login get currrentUser id
+// after login get currrentUser id
 var currrentUser;
 
 // database connectie met mongoose
-mongoose.connect(process.env.DB_URI, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(process.env.DB_URI, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', async function() {
-    // Get data from database
     console.log("Connected correctly to server");
     col = peoplemod;
     person = await col.findOne();
@@ -39,10 +43,10 @@ const fakeperson = [
   {"id": 14256,"naam": "Bert"},
   {"id": 987643,"naam": "Maaike"}
 ];
+
 const geslacht = ["man","vrouw"];
 const leeftijd = ["20-30", "30-40", "40-50", "50+"];
 const platform = ["PC", "Playstation", "Xbox"];
-const gebruiker = 2;
 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(express.static('static'));
@@ -50,11 +54,25 @@ app.use(express.static('static'));
 app.engine('handlebars', exphbs());
 app.set("view engine", 'handlebars');
 
+//socket setup
+
+var io = socket(server);
+io.on('connection', function(socket) {
+  console.log('made the socket connection');
+
+  //luistert naar de client side of daar een chat bericht van verstuurd wordt
+  socket.on('chat', function(data){
+    //stuurt het bericht door naar alle clients die gekoppeld zijn aan dezelfde room
+    io.sockets.emit('chat', data);
+  });
+});
+
+
 app.get('/', async (req, res) => {
   let profielen = {}
 
   // haalt je voorkeur uit de database
-    await voorkeurmod.findOne({id: gebruiker}, async function(err, result) {
+    await voorkeurmod.findOne({id: currrentUser}, async function(err, result) {
     if (err) throw err;
     // filter op geslacht, leeftijd en platform
     const filter = {geslacht: result.geslacht, leeftijdcategory: result.leeftijd, platform: result.platform}; 
@@ -186,7 +204,6 @@ app.get('/overzichtGames', async (req, res) => {
 app.post('/toevoegenGame', async (req, res) => {
 
   updateGames(req, res, "add");
-
 });
 
 // Remove game from database with form
@@ -220,7 +237,6 @@ app.get('/q&a', async (req, res) => {
 app.post('/q&a', async (req,res) => {
   //pushes chosen answers to the database with the id's from the users
   const questAndAnswer = {"person1": fakeperson[0].id, "ansPerson1": req.body.answer, "person2": fakeperson[1].id, "ansPerson2": req.body.answer};
-  console.log(questAndAnswer);
   await matchesmod.create(questAndAnswer)
   .then(function() { 
     // redirects the user to a new view
@@ -256,7 +272,7 @@ app.get('/filter', (req, res) => {
 app.post('/filter', async (req,res) => {
   // update voorkeur in de database
   // https://poopcode.com/mongoerror-the-update-operation-document-must-contain-atomic-operators-how-to-fix/
-  await voorkeurmod.findOneAndUpdate({ id: gebruiker },{ $set: {"geslacht": req.body.geslacht, "leeftijd": req.body.leeftijd, "platform": req.body.platform  }},{ new: true, upsert: true, returnOriginal: false })
+  await voorkeurmod.findOneAndUpdate({ id: currrentUser },{ $set: {"geslacht": req.body.geslacht, "leeftijd": req.body.leeftijd, "platform": req.body.platform  }},{ new: true, upsert: true, returnOriginal: false })
   res.redirect('/')
 });
 
