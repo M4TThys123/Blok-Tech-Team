@@ -6,28 +6,27 @@ var bodyParser = require('body-parser');
 const dotenv = require('dotenv').config();
 const mongoose = require('mongoose');
 
-//models
+// models
 const voorkeurmod = require('./models/voorkeur');
 const profielmod = require('./models/profiel');
 const peoplemod = require('./models/people');
 const vraagmod = require('./models/vragen');
 const matchesmod = require('./models/matches');
 
-// Connect database with .env username and password
+// Mongodb gebruiken
 const MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectID;
 
 // collection people
 var col;
-// After login get currrentUser id
+// after login get currrentUser id
 var currrentUser;
 
 // database connectie met mongoose
-mongoose.connect(process.env.DB_URI, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(process.env.DB_URI, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', async function() {
-    // Get data from database
     console.log("Connected correctly to server");
     col = peoplemod;
     person = await col.findOne();
@@ -39,10 +38,10 @@ const fakeperson = [
   {"id": 14256,"naam": "Bert"},
   {"id": 987643,"naam": "Maaike"}
 ];
+
 const geslacht = ["man","vrouw"];
 const leeftijd = ["20-30", "30-40", "40-50", "50+"];
 const platform = ["PC", "Playstation", "Xbox"];
-const gebruiker = 2;
 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(express.static('static'));
@@ -54,7 +53,7 @@ app.get('/', async (req, res) => {
   let profielen = {}
 
   // haalt je voorkeur uit de database
-    await voorkeurmod.findOne({id: gebruiker}, async function(err, result) {
+    await voorkeurmod.findOne({id: currrentUser}, async function(err, result) {
     if (err) throw err;
     // filter op geslacht, leeftijd en platform
     const filter = {geslacht: result.geslacht, leeftijdcategory: result.leeftijd, platform: result.platform}; 
@@ -256,7 +255,7 @@ app.get('/filter', (req, res) => {
 app.post('/filter', async (req,res) => {
   // update voorkeur in de database
   // https://poopcode.com/mongoerror-the-update-operation-document-must-contain-atomic-operators-how-to-fix/
-  await voorkeurmod.findOneAndUpdate({ id: gebruiker },{ $set: {"geslacht": req.body.geslacht, "leeftijd": req.body.leeftijd, "platform": req.body.platform  }},{ new: true, upsert: true, returnOriginal: false })
+  await voorkeurmod.findOneAndUpdate({ id: currrentUser },{ $set: {"geslacht": req.body.geslacht, "leeftijd": req.body.leeftijd, "platform": req.body.platform  }},{ new: true, upsert: true, returnOriginal: false })
   res.redirect('/')
 });
 
