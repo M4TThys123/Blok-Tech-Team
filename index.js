@@ -1,9 +1,14 @@
 const express = require('express');
+const app = require('express')();
+var socket = require('socket.io');
+var server = require('http').createServer(app);
+
+
 const exphbs = require('express-handlebars');
-const app = express();
 const port = 3000;
 var bodyParser = require('body-parser');
 const dotenv = require('dotenv').config();
+server.listen(port);
 const mongoose = require('mongoose');
 
 // models
@@ -48,6 +53,20 @@ app.use(express.static('static'));
 
 app.engine('handlebars', exphbs());
 app.set("view engine", 'handlebars');
+
+//socket setup
+
+var io = socket(server);
+io.on('connection', function(socket) {
+  console.log('made the socket connection');
+
+  //luistert naar de client side of daar een chat bericht van verstuurd wordt
+  socket.on('chat', function(data){
+    //stuurt het bericht door naar alle clients die gekoppeld zijn aan dezelfde room
+    io.sockets.emit('chat', data);
+  });
+});
+
 
 app.get('/', async (req, res) => {
   let profielen = {}
@@ -185,7 +204,6 @@ app.get('/overzichtGames', async (req, res) => {
 app.post('/toevoegenGame', async (req, res) => {
 
   updateGames(req, res, "add");
-
 });
 
 // Remove game from database with form
@@ -219,7 +237,6 @@ app.get('/q&a', async (req, res) => {
 app.post('/q&a', async (req,res) => {
   //pushes chosen answers to the database with the id's from the users
   const questAndAnswer = {"person1": fakeperson[0].id, "ansPerson1": req.body.answer, "person2": fakeperson[1].id, "ansPerson2": req.body.answer};
-  console.log(questAndAnswer);
   await matchesmod.create(questAndAnswer)
   .then(function() { 
     // redirects the user to a new view
