@@ -153,10 +153,9 @@ app.get('/profiel', async (req, res) => {
 
 
 app.get('/chat_home', async (req, res) => {
-  var profielChat = await profielmod.find();
+  var profielChat = await profielmod.find().lean();
   res.render('chat_home', {
-    profiel: profielChat,
-    naam: profielChat
+    profiel: profielChat
   })
   console.log (profielChat);
 });
