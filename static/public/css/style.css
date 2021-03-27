@@ -332,9 +332,7 @@ main #chat #msg2::before { /*https://codingislove.com/css-speech-bubbles/*/
     display: inline-flex;
     width: auto;
 }
-#rememberme *{
-    width: au;
-}
+
 
 #icon_user{
     width: 28px;
@@ -351,4 +349,50 @@ main #chat #msg2::before { /*https://codingislove.com/css-speech-bubbles/*/
     border: none;
     background-color: #257EBB;
     text-align: center;
+}
+
+/* Chat Home Pagina */
+#chathome{
+    width: 375px;
+    display: flex; 
+}
+
+.icon_box{
+    display: flex;
+    flex-direction: column;
+}
+
+#close_icon{
+    width: 50px;
+    height: 50px;
+    filter: invert(13%) sepia(98%) saturate(4968%) hue-rotate(359deg) brightness(95%) contrast(94%);
+}
+
+#chat_icon{
+    width: 50px;
+    height: 50px;
+    filter: invert(43%) sepia(25%) saturate(1279%) hue-rotate(161deg) brightness(97%) contrast(100%);
+}
+
+#chat_home button{
+    border: none;
+    background-color: white;
+}
+
+.profile_pic{
+    width: 120px;
+    height: 120px;
+    border-radius: 60px;
+}
+
+.profile_box{
+    display: flex;
+    margin: 2em;
+    padding-bottom: 1em;
+    border-bottom: #000 1px solid;
+    gap: 40px;
+}
+
+#profile_info{
+    align-self: center;
 }
