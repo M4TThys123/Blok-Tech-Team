@@ -7,12 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>document</title>
     <link rel="stylesheet" href="/public/css/style.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.3/socket.io.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"><!--https://fontawesome.com/icons?d=gallery-->
 </head>
 
 <body>
     <header>
-        <nav><a href=""><i class="fa fa-chevron-left"></i></a></nav>
+        <nav id="chat_nav"><a href=""><i class="fa fa-chevron-left"></i></a></nav>
         <h1>Maaike</h1>
     </header>
     <main>
@@ -22,11 +23,12 @@
 
     <footer id="chat_footer">
         <a href="#"><img src="public/images/camera.png" alt="add a picture"></a>
-        <form action="post">
-            <input type="text" placeholder="type here...">
-            <input type="submit" value="" id="submitText">
-        </form>
+        <section>
+            <input type="text" id="bericht" placeholder="type here...">
+            <button id="submitText"></button>
+        </section>
     </footer>
-</body>
+    <script type="text/javascript" src="public/js/chat.js"></script>
 <script type="text/javascript" src="/public/js/script.js"></script>
+</body>
 </html>

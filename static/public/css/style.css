@@ -20,7 +20,6 @@ body {
     height: 100%;
 }
 header {
-    background-color: #257EBB;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -29,39 +28,65 @@ header {
 
 header h1 {
     width: 50%;
+    color: #257EBB;
+    padding: 0.5em 0;
 }
 
 main {
-    height: 75%;
+    padding: 35px;
+    display: flex;
+    flex-direction: column;
+    gap: 3em;
+    padding-bottom: 100px;
+}
+
+a.button, button, .button{
+    background-color: #287CB9;
+    color: white;
+    width: max-content;
+    border: none;
+    padding: 0.5em 1em;
+    border-radius: 10px;
+    font-size: 1em;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 /*navigatie fixed*/
 nav{
-    background-color: white;
     width: 100vw;
     padding: 15px 35px;
     position: fixed;
-    bottom: 0;
-    border-top: 1px solid;
 }
 
 nav ul{
-        display: flex;
+    display: flex;
     justify-content: space-between;
 }
 
 nav ul li{
-display: flex;
+    display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 nav ul li img {
-   height: 2em;
+    height: 2em;
 }
 
 nav ul li:hover img, .current {
-filter: invert(43%) sepia(25%) saturate(1279%) hue-rotate(161deg) brightness(97%) contrast(100%);
+    filter: invert(43%) sepia(25%) saturate(1279%) hue-rotate(161deg) brightness(97%) contrast(100%);
+}
+
+#main_nav {
+    border-top: 1px solid;
+    background-color: white;
+    bottom: 0;
+
 }
 
 #chat {
@@ -205,25 +230,25 @@ main #chat #msg2::before { /*https://codingislove.com/css-speech-bubbles/*/
 #chat_footer, #add_footer {
     position: absolute;
     width: 100%;
-    border-top: 1px solid black;
     display: flex;
     flex-direction: row;
     align-items: center;
     bottom: 0;
     left: 0;
+    border-top: 1px solid black;
 }
 
 #chat_footer a img {
     width: 3em;
 }
 
-#chat_footer form {
+#chat_footer section {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-#chat_footer form input:first-of-type {
+#chat_footer section input:first-of-type {
     border: 1px solid black;
     width: 20em;
     margin-right: 1em;
@@ -232,13 +257,15 @@ main #chat #msg2::before { /*https://codingislove.com/css-speech-bubbles/*/
     border-radius: 1em;
 }
 
-#chat_footer form #submitText {
+#chat_footer section #submitText {
     border: none;
     background-image: url(../images/send.png);
     background-repeat: no-repeat;
     background-size: 30px;
     width: 30px;
     height: 30px;
+    background-color: transparent;
+    padding: 0;
 }
 #add_header, #add_footer {
     height: 10%;
@@ -274,10 +301,93 @@ main #chat #msg2::before { /*https://codingislove.com/css-speech-bubbles/*/
     font-size: 1.25em;
 }
 
+
+/*Profiel pagina*/
+section#profiel {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 10px;
+}
+
+section#profiel img {
+    border-radius: 50%;
+    width: 100%;
+}
+
+
+section#profiel p {
+    grid-column: 2;
+align-self: center;
+}
+
+section#games{
+    display: flex;
+    flex-direction: column;
+        gap: 10px;
+}
+
+section#games ul {
+display: flex;
+    gap: 10px;
+}
+
+section#games li {
+    list-style: none;
+       width: 30vw;
+}
+section#games img {
+ width: 100%;
+}
+
+/*add game select game*/
+section#addGames {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+section#addGames ul {
+    display: grid;
+    list-style: none;
+    gap: 10px;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+section#addGames ul li {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+        text-align: center;
+    gap: 8px;
+    position: relative;
+}
+
+section#addGames ul li input[type="checkbox"] {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 20px;
+    height: 20px;
+}
+
+section#addGames ul li img {
+    width: 100%;
+}
+
+section#addGames label {
+    text-align: -webkit-center;
+}
+
+section#addGames h3 {
+    font-size: 15px;
+    min-height: 40px;
+}
+
 #add_footer {
     display: flex;
     justify-content: center;
 }
+
 
 /* Login pagina */
 #login_pagina{
@@ -357,10 +467,45 @@ main #chat #msg2::before { /*https://codingislove.com/css-speech-bubbles/*/
     display: flex; 
 }
 
-.icon_box{
+
+#profileimage {
+    width: 100%;
+    border-radius: 50%;
+}
+
+.match a img{
+    max-height: 2em;
+}
+
+fieldset {
+    border: 0;
+}
+
+.match article{
+    margin: 0.5em;
+    padding: 1em;
+}
+
+.filter {
+    padding: 1em;
     display: flex;
     flex-direction: column;
 }
+
+.match a img{
+    max-height: 2em;
+}
+
+.match {
+    padding: 0 0 5em 0;
+}
+
+ 
+  .icon_box{
+    display: flex;
+    flex-direction: column;
+}
+
 
 #close_icon{
     width: 50px;
@@ -395,4 +540,46 @@ main #chat #msg2::before { /*https://codingislove.com/css-speech-bubbles/*/
 
 #profile_info{
     align-self: center;
+}
+
+.match div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.match div img{
+    border-radius: 200px;
+    padding: 0.5em;
+    max-height: 5em;
+    margin: 1em;
+    width: 5em;
+} 
+
+#ice_button {
+    position: absolute;
+    bottom: 10%;
+    left: 30%;
+    padding: 0.5em;
+    background-color: #257EBB;
+    border-radius: 1.5em;
+    color: white;
+}
+
+.nieuwBericht {
+    background-color: #257EBB;
+    margin-bottom: 1em;
+}
+
+.nieuwBericht::before { /*https://codingislove.com/css-speech-bubbles/*/
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border-left: 10px solid #257EBB;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #257EBB;
+    border-bottom: 10px solid transparent;
+    bottom: -12px;
+    left: 8px;
 }

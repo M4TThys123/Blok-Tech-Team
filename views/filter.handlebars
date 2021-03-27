@@ -10,14 +10,24 @@
                   {{/each}}
             </fieldset>
     </section>
-
+    
     <section class="filter">
         <h3>Leeftijd</h3>
          <fieldset>
                 {{#each leeftijd}}  
-                 <input type="radio" name="leeftijd" value="{{this}}" id="{{this}}">
+                 <input type="radio" name="leeftijd" value="{{this}}" id="{{this}}" required>
                 <label for="{{this}}">{{this}}</label><br>
                   {{/each}}
+            </fieldset>
+    </section>
+
+    <section class="filter">
+        <h3>Platform</h3>
+         <fieldset>
+                {{#each platform}}  
+                <input type="radio" name="platform" value="{{this}}" id="{{this}}" required>
+                <label for="{{this}}">{{this}}</label><br>
+                {{/each}}
             </fieldset>
     </section>
 <button type="submit">Opslaan</button>

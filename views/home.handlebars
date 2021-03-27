@@ -1,15 +1,24 @@
-<a href="filter"><img src="/public/images/filter.svg"> Filter</a>
-        <section class="match">   
-    {{#each profielen}}  
-        <article>
-            <img src="{{this.afbeelding}}">
-            <h2>{{this.naamkat}}</h2> 
-            <h3>Kat van {{this.naam}}</h3>
-            <h4>{{this.leeftijd}}</h4>
-            <p>{{this.beschrijving}}</p>
-        <div class= 'buttons'>
+<section class="match">
+<a class="button" href="filter">Filter</a>
+    {{#each profielen}}
+    <article>
+        <img id="profileimage" src="{{this.afbeelding}}">
+        <h2>{{this.naam}}</h2>
+        <h4>{{this.leeftijd}}</h4>
+        <p>{{this.beschrijving}}</p>
+        <section id="games">
+            <ul>
+                {{#each favoritegames}}
+                <li>
+                    <img src="{{this}}">
+                </li>
+                {{/each}}
+            </ul>
+        </section>
+        <div class='buttons'>
             <img src="/public/images/close.svg">
             <img src="/public/images/heart.svg">
         </div>
-        </article>      
-    {{/each}} </section>
+    </article>
+    {{/each}}
+</section>
