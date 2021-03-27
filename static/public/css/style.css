@@ -229,10 +229,11 @@ main #chat #msg2::before { /*https://codingislove.com/css-speech-bubbles/*/
 
 #chat_footer {
     min-height: 3em;
+    background-color: white;
 }
 
 #chat_footer, #add_footer {
-    position: absolute;
+    position: fixed;
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -442,7 +443,7 @@ fieldset {
 } 
 
 #ice_button {
-    position: absolute;
+    position: fixed;
     bottom: 10%;
     left: 30%;
     padding: 0.5em;
@@ -486,4 +487,5 @@ fieldset {
 
 #chat_main {
     padding: 1.5em;
+    padding-bottom: 3em;
 }
