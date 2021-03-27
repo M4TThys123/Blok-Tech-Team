@@ -143,19 +143,15 @@ app.get('/profiel', async (req, res) => {
 
 // 
 app.get('/chat_home', async (req, res) => {
- 
-console.log (movies);
+
 
   res.render('chat_home', {
-      name: person.name,
-      games: movies
   })
 
 });
 
 app.get('/', async (req, res) => {
- 
-  console.log (movies);
+
   
     res.render('login', {
 
@@ -299,7 +295,7 @@ app.post('/filter', async (req,res) => {
   // update voorkeur in de database
   // https://poopcode.com/mongoerror-the-update-operation-document-must-contain-atomic-operators-how-to-fix/
   await voorkeurmod.findOneAndUpdate({ id: currrentUser },{ $set: {"geslacht": req.body.geslacht, "leeftijd": req.body.leeftijd, "platform": req.body.platform  }},{ new: true, upsert: true, returnOriginal: false })
-  res.redirect('/')
+  res.redirect('/match')
 });
 
 app.use(function (req, res) {
