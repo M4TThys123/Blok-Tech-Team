@@ -1,18 +1,19 @@
 <div id="chat_home">
-
+	{{#each profiel}}
 	<section class="profile_box">
 		<img src="public/images/01-shutterstock_476340928-Irina-Bg-1024x683.jpg" class="profile_pic">
 		<div id="profile_info">
-			<p>Sarah</p>
-			<p>Rocket league, Call of duty 2</p>
+			<p>{{this}}</p>
+			{{!-- <p>{{this.leeftijd}}</p> --}}
 		</div>
 		<div class="icon_box">
 			<a href=""><img src="public/images/chat.svg" id="chat_icon" alt=""></a>
 			<button id=""><img src="public/images/close.svg" id="close_icon" alt=""></button>
 		</div>
 	</section>
+	{{/each}}
 
-	<section class="profile_box">
+	{{!-- <section class="profile_box">
 		<img src="public/images/pexels-photo-220453.jpeg" class="profile_pic"```````````>
 		<div>
 			<p>Jack</p>
@@ -34,5 +35,5 @@
 			<a href=""><img src="public/images/chat.svg" id="chat_icon" alt=""></a>
 			<button id=""><img src="public/images/close.svg" id="close_icon" alt=""></button>
 		</div>
-	</section>
+	</section> --}}
 </div>
