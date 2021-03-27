@@ -543,6 +543,11 @@ fieldset {
     gap: 40px;
 }
 
+.profile_box img {
+    width: 90px;
+    height: 90px;
+}
+
 #profile_info{
     align-self: center;
 }
