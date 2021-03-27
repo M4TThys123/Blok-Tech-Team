@@ -293,7 +293,7 @@ main #chat #msg2::before { /*https://codingislove.com/css-speech-bubbles/*/
     border: none;
 }
 
-#vraagform button {
+#vraagform button{
     border-radius: 2em;
     border: 1px solid black;
     margin-top: 01em;
@@ -388,6 +388,86 @@ section#addGames h3 {
     justify-content: center;
 }
 
+
+/* Login pagina */
+#login_pagina{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#login_pagina h1{
+    font-size: 40px;
+    border-bottom: 6px solid #257EBB;
+    margin-bottom: 50px;
+    padding: 13px 0;
+}
+
+
+.login_container{
+    width: 360px;
+    height: 420px;
+    margin-top: 4em;
+    background: #000;
+    color: #fff;
+    display: flex;
+    position: absolute;
+    box-sizing: border-box;
+    align-items: center;
+    background-color: gray;
+    flex-direction: column;
+    padding: 2em;
+
+}
+
+#login_pagina form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    padding: 0 15%;
+}
+
+#login_pagina form .button, #login_pagina form #login_naam, #login_pagina form #login_password{
+    width: 100%;
+}
+
+#login_rememberme{
+    height: 28px;
+    width: 28px;
+}
+
+/* #login_pagina form *  */
+#rememberme{
+    display: inline-flex;
+    width: auto;
+}
+
+
+#icon_user{
+    width: 28px;
+    height: 28px; 
+    background-image: url('../images/default/1x/login/sprite-sd716acf281.png');
+    background-position: 0 0;
+}
+
+.button{
+    color: white;
+    padding: 7px;
+    border-radius: 20px;
+    width: max-content;
+    border: none;
+    background-color: #257EBB;
+    text-align: center;
+}
+
+/* Chat Home Pagina */
+#chathome{
+    width: 375px;
+    display: flex; 
+}
+
+
 #profileimage {
     width: 100%;
     border-radius: 50%;
@@ -418,8 +498,48 @@ fieldset {
 
 .match {
     padding: 0 0 5em 0;
+}
+
+ 
+  .icon_box{
     display: flex;
     flex-direction: column;
+}
+
+
+#close_icon{
+    width: 50px;
+    height: 50px;
+    filter: invert(13%) sepia(98%) saturate(4968%) hue-rotate(359deg) brightness(95%) contrast(94%);
+}
+
+#chat_icon{
+    width: 50px;
+    height: 50px;
+    filter: invert(43%) sepia(25%) saturate(1279%) hue-rotate(161deg) brightness(97%) contrast(100%);
+}
+
+#chat_home button{
+    border: none;
+    background-color: white;
+}
+
+.profile_pic{
+    width: 120px;
+    height: 120px;
+    border-radius: 60px;
+}
+
+.profile_box{
+    display: flex;
+    margin: 2em;
+    padding-bottom: 1em;
+    border-bottom: #000 1px solid;
+    gap: 40px;
+}
+
+#profile_info{
+    align-self: center;
 }
 
 .match div{
