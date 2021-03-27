@@ -227,6 +227,10 @@ main #chat #msg2::before { /*https://codingislove.com/css-speech-bubbles/*/
     background-color: #EB0C0C;
 }
 
+#chat_footer {
+    min-height: 3em;
+}
+
 #chat_footer, #add_footer {
     position: absolute;
     width: 100%;
@@ -239,7 +243,8 @@ main #chat #msg2::before { /*https://codingislove.com/css-speech-bubbles/*/
 }
 
 #chat_footer a img {
-    width: 3em;
+    width: 2em;
+    margin: 0em 0.5em;
 }
 
 #chat_footer section {
@@ -259,11 +264,11 @@ main #chat #msg2::before { /*https://codingislove.com/css-speech-bubbles/*/
 
 #chat_footer section #submitText {
     border: none;
-    background-image: url(../images/send.png);
+    background-image: url(../images/paper-plane-solid.svg);
     background-repeat: no-repeat;
-    background-size: 30px;
-    width: 30px;
-    height: 30px;
+    background-size: 2em;
+    width: 2em;
+    height: 2em;
     background-color: transparent;
     padding: 0;
 }
@@ -566,9 +571,20 @@ fieldset {
     color: white;
 }
 
+#chat_header, #add_header {
+    background-color: #257EBB;
+}
+
+#chat_header h1, #add_header h1 {
+    color: black;
+    text-align: center;
+    padding: 0.25em 0em;
+}
+
 .nieuwBericht {
     background-color: #257EBB;
     margin-bottom: 1em;
+    text-align: center;
 }
 
 .nieuwBericht::before { /*https://codingislove.com/css-speech-bubbles/*/
@@ -582,4 +598,12 @@ fieldset {
     border-bottom: 10px solid transparent;
     bottom: -12px;
     left: 8px;
+}
+
+#bericht, #submitText {
+    outline: none;
+}
+
+#chat_main {
+    padding: 1.5em;
 }
