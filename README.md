@@ -29,7 +29,7 @@ npm start
 Wij zijn door middel van het brainstormen met [job stories](https://github.com/M4TThys123/Blok-Tech-Team/wiki/Job-Stories) op een feature komen die wij hebben uitgewerkt. Vervolgens is het plan om deze te bundelen tot een werkende matching app.
   
 ## Datebase schets
-<img src="https://github.com/M4TThys123/Blok-Tech-Team/blob/main/imagesWiki/datamodel.jpg" alt="Datamodel van mijn database" width="750">
+<img src="https://github.com/M4TThys123/Blok-Tech-Team/blob/main/imagesWiki/datamodelv2.jpg" alt="Datamodel van onze database" width="750">
 
 ## License
 Usage is provided under the [MIT License](https://github.com/M4TThys123/Blok-Tech-Team/blob/main/LICENSE). See LICENSE for the full details.
