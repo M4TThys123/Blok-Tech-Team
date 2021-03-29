@@ -13,7 +13,7 @@ Game matcher is een cross-platform matching applicatie die gamers gaat helpen bi
 
 ## App
 
-Onder de volgende link is onze app gedeployed: [https://blok-tech-team.herokuapp.com/](https://blok-tech-team.herokuapp.com/)
+Onder de volgende link is onze app gedeployed: <a href="https://blok-tech-team.herokuapp.com/" target="_blank" >https://blok-tech-team.herokuapp.com/</a> (bedoelt voor iphone 6/7/8).
 
 ## Installeren
 ```
