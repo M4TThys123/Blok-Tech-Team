@@ -84,9 +84,24 @@ app.get('/match', async (req, res) => {
   });
 });
 
-// Wanneer je naar profiel.html gaat, runt node en wordt je geredirect naar een dynamische template
+app.get('/chat_home', async (req, res) => {
+  var profielChat = await profielmod.find().lean();
+  res.render('chat_home', {
+    profiel: profielChat
+  })
+  console.log (profielChat);
+});
 
-//////////// Dit zijn de profiel pagina's gemaakt door tim //////////////
+app.get('/', async (req, res) => {
+
+  
+    res.render('login', {
+
+    })
+  
+  });
+
+// Dit zijn de profiel pagina's gemaakt door tim 
 
 // functie die de favoritegames update
 async function updateGames(req, res, change){
@@ -120,7 +135,7 @@ async function updateGames(req, res, change){
 }
 
 // profiel overzicht pagina
-
+// db.collection.findOne() — MongoDB Manual. (n.d.). MongoDB Manual. Retrieved March 25, 2021, from https://docs.mongodb.com/manual/reference/method/db.collection.findOne/
 app.get('/profiel', async (req, res) => {
 
   // Opvragen informatie persoon
@@ -139,34 +154,6 @@ app.get('/profiel', async (req, res) => {
 
 });
 
-
-// 
-
-// const profielChat = [
-//   {"naam": "Sarah",
-//   "games": "Rocket league"},
-  
-//   {"naam": "Jack","games": "Rocket league"},
-//   {"naam": "Mara","games": "Rocket league"}
-// ];
-
-
-app.get('/chat_home', async (req, res) => {
-  var profielChat = await profielmod.find().lean();
-  res.render('chat_home', {
-    profiel: profielChat
-  })
-  console.log (profielChat);
-});
-
-app.get('/', async (req, res) => {
-
-  
-    res.render('login', {
-
-    })
-  
-  });
 
 
 // Persoonlijke informatie gebruiker
@@ -212,6 +199,7 @@ app.get('/overzichtGames', async (req, res) => {
   var cmsgames;
 
   // Data ophalen uit het cms met query
+  // Queries. (n.d.). Sanity.Io. Retrieved March 25, 2021, from https://www.sanity.io/docs/http-query
   const query = "*[_type == 'games']{name, 'posterUrl': poster.asset->url}"
 
   // verander variable naar die van de database
@@ -244,7 +232,7 @@ app.post('/verwijderGame', async (req, res) => {
 
 });
 
-/////////// Einden van profiel pagina's /////////
+// Einden van profiel pagina's 
 
 
 app.get('/q&a', async (req, res) => {
