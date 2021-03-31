@@ -1,15 +1,17 @@
 <div id="chat_home">
 	{{#each profielList}}
 	<section class="profile_box">
+  
 		<img src="{{this.afbeelding}}" class="profile_pic">
 		<div id="profile_info">
 			<p>{{this.naam}}</p>
 
 
 			{{!-- <p>{{this.leeftijd}}</p> --}}
+
 		</div>
 		<div class="icon_box">
-			<a href=""><img src="public/images/chat.svg" id="chat_icon" alt=""></a>
+			<a href="chat"><img src="public/images/chat.svg" id="chat_icon" alt=""></a>
 			<button id=""><img src="public/images/close.svg" id="close_icon" alt=""></button>
 		</div>
 		{{#each this.favoritegames}}

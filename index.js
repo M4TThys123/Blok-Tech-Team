@@ -22,9 +22,9 @@ const matchesmod = require('./models/matches');
 const MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectID;
 
-// collection people
+// collection personen
 var col;
-// after login get currrentUser id
+// after login pak de currrentUser id
 var currrentUser;
 
 // database connectie met mongoose
@@ -56,7 +56,6 @@ app.set("view engine", 'handlebars');
 
 
 //socket setup
-
 var io = socket(server);
 io.on('connection', function(socket) {
   console.log('made the socket connection');
@@ -85,9 +84,24 @@ app.get('/match', async (req, res) => {
   });
 });
 
-// When going to profiel.html when node is running your wil be redirected to a dynamic template
+app.get('/chat_home', async (req, res) => {
+  var profielChat = await profielmod.find().lean();
+  res.render('chat_home', {
+    profiel: profielChat
+  })
+  console.log (profielChat);
+});
 
-//////////// Dit zijn de profiel pagina's gemaakt door tim //////////////
+app.get('/', async (req, res) => {
+
+  
+    res.render('login', {
+
+    })
+  
+  });
+
+// Dit zijn de profiel pagina's gemaakt door tim 
 
 // functie die de favoritegames update
 async function updateGames(req, res, change){
@@ -121,7 +135,7 @@ async function updateGames(req, res, change){
 }
 
 // profiel overzicht pagina
-
+// db.collection.findOne() — MongoDB Manual. (n.d.). MongoDB Manual. Retrieved March 25, 2021, from https://docs.mongodb.com/manual/reference/method/db.collection.findOne/
 app.get('/profiel', async (req, res) => {
 
   // Opvragen informatie persoon
@@ -139,6 +153,7 @@ app.get('/profiel', async (req, res) => {
   })
 
 });
+
 
 
 // 
@@ -198,7 +213,7 @@ app.post('/overzichtPersoon', async (req, res) => {
 });
 
 
-// Render template with games name and image url
+// Render template met games naam en image url
 app.get('/overzichtGames', async (req, res) => {
 
   // Verbinden met het cms
@@ -206,13 +221,14 @@ app.get('/overzichtGames', async (req, res) => {
   const client2 = sanityClient({
     projectId: '5wst6igf',
     dataset: 'production',
-    token: '', // or leave blank to be anonymous user
-    useCdn: true // `false` if you want to ensure fresh data
+    token: '', // of laat leeg om een verborgen gebruiker te zijn
+    useCdn: true // `false` als je nieuwe verse data wilt krijgen
   })
 
   var cmsgames;
 
   // Data ophalen uit het cms met query
+  // Queries. (n.d.). Sanity.Io. Retrieved March 25, 2021, from https://www.sanity.io/docs/http-query
   const query = "*[_type == 'games']{name, 'posterUrl': poster.asset->url}"
 
   // verander variable naar die van de database
@@ -238,27 +254,27 @@ app.post('/toevoegenGame', async (req, res) => {
   updateGames(req, res, "add");
 });
 
-// Remove game from database with form
+// verwijder game van de database met een form
 app.post('/verwijderGame', async (req, res) => {
 
   updateGames(req, res, "remove");
 
 });
 
-/////////// Einden van profiel pagina's /////////
+// Einden van profiel pagina's 
 
 
 app.get('/q&a', async (req, res) => {
   var vragen = [];
-  //takes all the questions from the database and places them into the array vragen
+  //Neemt alle vragen van de database en plaatst ze in de array vragen
   vragen = await vraagmod.find({}).lean();
-  //picks 5 random questions from vragen
+  //Kiest 5 random vragen van de array vragen
   const randVraag = [];
-  // vraagHolder is a holder for a single question to test if they are already in the new array randVraag
+  // vraagHolder is een holder voor een enkele vraag om te testen of deze al in de nieuwe array randVraag staat
   var vraagHolder = "";
   while (randVraag.length < 5) {
     vraagHolder = (vragen[Math.floor(Math.random() * vragen.length)]); 
-    //if the question in vraagHolder isn't in the new array, push them to the array
+    //als de nieuwe vraag in vraagHolder, niet in de nieuwe array staat, push hem dan naar de nieuwe array.
     if(!randVraag.includes(vraagHolder)){
       randVraag.push(vraagHolder);
     }
@@ -267,11 +283,11 @@ app.get('/q&a', async (req, res) => {
 });
 
 app.post('/q&a', async (req,res) => {
-  //pushes chosen answers to the database with the id's from the users
+  //stuurt de gekozen antwoorden via de model naar de databasepushes chosen answers to the database with the id's from the users
   const questAndAnswer = {"person1": fakeperson[0].id, "ansPerson1": req.body.answer, "person2": fakeperson[1].id, "ansPerson2": req.body.answer};
   await matchesmod.create(questAndAnswer)
   .then(function() { 
-    // redirects the user to a new view
+    // redirects de gebruiker naar een nieuwe view
     res.redirect('/chat');
 }).catch(function(error){
     res.send(error);
@@ -281,7 +297,7 @@ app.post('/q&a', async (req,res) => {
 
 
 app.get('/chat', async (req, res) => {
-  // takes the last match and sets it into an array
+  // pakt de laatste match aan antwoorden en zet ze in een array
   var lastItem = await matchesmod.find().limit(1).sort({$natural:-1}).lean();
 res.render('chat', {lastItem, layout: 'chat_layout.handlebars'});
 });
@@ -291,7 +307,7 @@ res.render('chat', {lastItem, layout: 'chat_layout.handlebars'});
 });
 
 app.post('/vragen', async (req,res) => {
-  // takes the info given in the view form and places it into the database
+  // pakt de info die gegeven is in de view en plaatst het via de model in de database
   const Addvragen = {"vraag": req.body.vraag, "ant1": req.body.answer1, "ant2": req.body.answer2};
   await vraagmod.create(Addvragen);
   res.render('add', {Addvragen, layout: 'addlayout.handlebars'})

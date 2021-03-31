@@ -17,4 +17,4 @@ knop.addEventListener('click', function(){
 socket.on('chat', function(data){
     //zet het bericht in een p en beeld deze af op de pagina
     output.innerHTML += '<section class="chat_msg nieuwBericht"><p>' + data.message + '</p></section>';
-})
+});
