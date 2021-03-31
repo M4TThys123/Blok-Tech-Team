@@ -156,6 +156,35 @@ app.get('/profiel', async (req, res) => {
 
 
 
+// 
+
+// const profielChat = [
+//   {"naam": "Sarah",
+//   "games": "Rocket league"},
+  
+//   {"naam": "Jack","games": "Rocket league"},
+//   {"naam": "Mara","games": "Rocket league"}
+// ];
+
+
+app.get('/chat_home', async (req, res) => {
+  var profielList = await profielmod.find().lean();
+  res.render('chat_home', {
+    profielList
+  })
+  console.log (profielList);
+});
+
+app.get('/', async (req, res) => {
+
+  
+    res.render('login', {
+
+    })
+  
+  });
+
+
 // Persoonlijke informatie gebruiker
 app.get('/overzichtPersoon', async (req, res) => {
 
